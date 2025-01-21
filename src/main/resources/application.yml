@@ -1,0 +1,54 @@
+#??? ??? ??? ??? ??(swagger ? jwt)
+constant:
+  jwt-const:
+    issuer: green@green.kr #?? ???
+    secret: DaeguGreenArtAcademyClass502RoomForJavaSpringBootFighting
+    header-key: Authorization
+    claim-key: signedUser
+    bearer-format: JWT
+    scheme: Bearer
+    access-token-expiry: 86_400_000 #1? (MS)
+    refresh-token-expiry: 1_296_000_000 # 15? (MS)
+    refresh-token-cookie-name: refresh-token
+    refresh-token-cookie-expiry: 1_296_000 #15? (S)
+
+#??? ??? ??? ??? ??
+
+# ?? ????? ?? ??
+file:
+  directory: D:/SGSG/download/attaParune
+
+#???? ?? ???
+const:
+  default-page-size: 20
+
+
+#?????? ??
+spring:
+
+  application:
+    name: attaParuneVer2
+
+  config:
+    import: "classpath:application-secret.yml"
+
+  #File ??? ??
+  servlet:
+    multipart:
+      max-file-size: 50MB
+
+#MyBatis ??
+mybatis:
+  mapper-locations: mappers/**/*.xml
+
+#Swagger ??
+springdoc:
+  swagger-ui:
+    default-model-expand-depth: 10
+    display-request-duration: true
+    groups-order: asc
+    operations-sorter: method
+    path: /swagger
+    tags-sorter: alpha
+  cache:
+    disabled: true
