@@ -3,5 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.attaparunever2.restaurant.RestaurantMapper">
-
+    <insert id="insRestaurant">
+        INSERT INTO restaurant
+           SET admin_id = #{adminId}
+             , category_id = #{categoryId}
+             , restaurant_name = #{restaurantName}
+             , restaurant_address = #{restaurantAddress}
+             , restaurant_number = #{restaurantNumber}
+             , business_number = #{businessNumber}
+             , operating_hours = #{operatingHours}
+             , restaurant_description = #{restaurantDescription}
+             , max_capacity = #{maxCapacity}
+             , let = #{let}
+             , lng = #{lng}
+    </insert>
 </mapper>
