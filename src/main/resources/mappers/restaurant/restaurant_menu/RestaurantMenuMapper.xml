@@ -16,4 +16,10 @@
         </if>
         , available = #{available}
     </insert>
+
+    <select id="selMenu">
+        SELECT menu_name AS menuName, price, details, available
+        FROM restaurant_menu
+        WHERE category_id = #{categoryId};
+    </select>
 </mapper>
