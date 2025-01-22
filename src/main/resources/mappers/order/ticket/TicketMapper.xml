@@ -3,5 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.attaparunever2.order.ticket.TicketMapper">
+    <insert id="postTicket" useGeneratedKeys="true" keyProperty="ticketId">
+        INSERT INTO ticket
+        SET order_id = #{orderId}
+        , expired_date = #{expiredDate}
+    </insert>
 
+    <select id="getTicket">
+
+    </select>
 </mapper>
