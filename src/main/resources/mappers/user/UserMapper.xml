@@ -3,6 +3,34 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.attaparunever2.user.UserMapper">
+    <insert id="insUserEmailVerification">
+        INSERT INTO user_email_verification
+        SET user_id = #{userId}
+        , token = #{token}
+        , expired_date = CURRENT_TIMESTAMP + INTERVAL 30 MINUTE
+    </insert>
+
+    <select id="selUserEmailVerificationByUId">
+        SELECT A.user_id AS userId, token, expired_date AS expiredDate, A.created_at AS createdAt
+        FROM user_email_verification A
+        WHERE user_id = (
+            SELECT user_id
+            FROM user
+            WHERE uid = #{UId}
+        )
+    </select>
+
+    <select id="selUserEmailVerificationByUserId">
+        SELECT user_id AS userId, token, expired_date AS expiredDate, created_at  AS createdAt
+        FROM user_email_verification
+        WHERE user_id = #{userId}
+    </select>
+
+    <delete id="delUserEmailVerification">
+        DELETE FROM user_email_verification
+        WHERE user_id = #{userId}
+    </delete>
+
     <insert id="insUser" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user
         SET uid = #{uid}
@@ -27,4 +55,9 @@
         ON A.company_id = B.company_id
         WHERE A.uid = #{uid}
     </select>
+
+    <delete id="delUser">
+        DELETE FROM user
+        WHERE user_id = #{userId}
+    </delete>
 </mapper>

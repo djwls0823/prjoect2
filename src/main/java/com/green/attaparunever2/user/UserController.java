@@ -1,16 +1,16 @@
 package com.green.attaparunever2.user;
 
 import com.green.attaparunever2.common.model.ResultResponse;
+import com.green.attaparunever2.user.model.AuthTokenReq;
 import com.green.attaparunever2.user.model.UserSignInReq;
+import com.green.attaparunever2.user.model.UserSignInRes;
 import com.green.attaparunever2.user.model.UserSignUpReq;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -23,12 +23,36 @@ public class UserController {
     @PostMapping("sign-up")
     @Operation(summary = "회원가입")
     public ResultResponse<?> signUp(@RequestBody UserSignUpReq req) {
-        return userService.signUp(req);
+        int result = userService.signUp(req);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMsg("회원가입에 성공하였습니다.")
+                .resultData(result)
+                .build();
+    }
+
+    @GetMapping("auth-token")
+    @Operation(summary = "인증번호 인증")
+    public ResultResponse<?> authToken(@ModelAttribute AuthTokenReq req) {
+        int result = userService.authToken(req);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMsg("메일 인증에 성공했습니다.")
+                .resultData(result)
+                .build();
     }
 
     @PostMapping("sign-in")
     @Operation(summary = "로그인")
     public ResultResponse<?> signIn(@RequestBody UserSignInReq p) {
-        return userService.signIn(p);
+        UserSignInRes userSignInRes = userService.signIn(p);
+
+        return ResultResponse.<UserSignInRes>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMsg("로그인 성공")
+                .resultData(userSignInRes)
+                .build();
     }
 }
