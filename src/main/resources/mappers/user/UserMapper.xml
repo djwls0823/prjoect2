@@ -3,5 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.attaparunever2.user.UserMapper">
+    <insert id="insUser" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO user
+        SET uid = #{uid}
+        , company_id = #{companyId}
+        , role_id = 'ROLE_USER'
+        , upw = #{upw}
+        , name = #{name}
+        <if test="pic != null">
+            , pic = #{pic}
+        </if>
+        , email = #{email}
+        , phone = #{phone}
+    </insert>
 
+    <select id="selUserByUid">
+        SELECT A.user_id AS userId,  B.name AS companyName
+        , A.company_id AS companyId
+        , A.role_id AS roleId
+        , A.uid, A.upw, A.name, A.pic
+        , A.email, A.phone, A.point
+        FROM user A INNER JOIN company B
+        ON A.company_id = B.company_id
+        WHERE A.uid = #{uid}
+    </select>
 </mapper>
