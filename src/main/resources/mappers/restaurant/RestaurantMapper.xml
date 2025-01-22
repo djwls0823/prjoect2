@@ -14,13 +14,31 @@
              , operating_hours = #{operatingHours}
              , restaurant_description = #{restaurantDescription}
              , max_capacity = #{maxCapacity}
-             , let = #{let}
+             , lat = #{lat}
              , lng = #{lng}
     </insert>
+
+    <select id="selRestaurant">
+        SELECT admin_id AS adminId, category_id AS categoryId, restaurant_name AS restaurantName
+             , restaurant_address AS restaurantAddress, restaurant_number AS restaurantNumber
+             , business_number AS businessNumber, operating_hours AS operatingHours
+             , restaurant_description AS restaurantDescription, `status`
+             , max_capacity AS maxCapacity, lat, lng, created_at AS createdAt
+          FROM restaurant
+         WHERE restaurant_id = #{restaurantId};
+    </select>
 
     <insert id="insHoliday">
         INSERT INTO holiday
            SET restaurant_id = #{restaurantId}
              , closed_days = #{closedDays}
     </insert>
+
+    <select id="selHolidays">
+        SELECT B.closed_days AS closedDays
+        FROM restaurant A
+        INNER JOIN holiday B
+        ON A.restaurant_id = B.restaurant_id
+        WHERE B.restaurant_id = #{restaurantId}
+    </select>
 </mapper>

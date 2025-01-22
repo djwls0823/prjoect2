@@ -2,14 +2,12 @@ package com.green.attaparunever2.restaurant;
 
 
 import com.green.attaparunever2.common.model.ResultResponse;
-import com.green.attaparunever2.restaurant.model.InsHolidayReq;
-import com.green.attaparunever2.restaurant.model.InsRestaurantReq;
+import com.green.attaparunever2.restaurant.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +27,18 @@ public class RestaurantController {
                 .build();
     }
 
+    @GetMapping
+    @Operation(summary = "식당 보기")
+    public ResultResponse<SelRestaurantRes> getRestaurant(SelRestaurantReq p){
+        SelRestaurantRes res = restaurantService.getRestaurant(p);
+        
+        return ResultResponse.<SelRestaurantRes>builder()
+                .statusCode("200")
+                .resultMsg("식당 보기 성공")
+                .resultData(res)
+                .build();
+    }
+    
     @PostMapping("holiday")
     @Operation(summary = "휴무일 등록")
     public ResultResponse<Integer> postHoliday(InsHolidayReq p){
@@ -39,6 +49,17 @@ public class RestaurantController {
                 .resultMsg("휴무일 등록 성공")
                 .resultData(result)
                 .build();
+    }
 
+    @GetMapping("holiday")
+    @Operation(summary = "휴무일 보기")
+    public ResultResponse<List<SelHolidayRes>> getHoliday(SelHolidayReq p){
+        List<SelHolidayRes> res = restaurantService.getHoliday(p);
+
+        return ResultResponse.<List<SelHolidayRes>>builder()
+                .statusCode("200")
+                .resultMsg("휴무일 보기 완료")
+                .resultData(res)
+                .build();
     }
 }
