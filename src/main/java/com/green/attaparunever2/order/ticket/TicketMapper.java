@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface TicketMapper {
-    int insTicket(TicketPostReq p);
+    int postTicket(TicketPostReq p);
 }
