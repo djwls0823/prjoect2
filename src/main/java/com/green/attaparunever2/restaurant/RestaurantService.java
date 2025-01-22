@@ -1,6 +1,7 @@
 package com.green.attaparunever2.restaurant;
 
 
+import com.green.attaparunever2.restaurant.model.InsHolidayReq;
 import com.green.attaparunever2.restaurant.model.InsRestaurantReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,4 +16,11 @@ public class RestaurantService {
 
         return result;
     }
+
+    public int postHoliday(InsHolidayReq p){
+        int result = restaurantMapper.insHoliday(p);
+
+        return result;
+    }
+
 }
