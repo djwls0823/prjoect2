@@ -338,6 +338,28 @@ CREATE TABLE IF NOT EXISTS `user_point_deposits` (
   CONSTRAINT `FK_user_TO_user_point_deposits_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- 테이블 atta_parune.admin_email_verification 구조 내보내기
+CREATE TABLE IF NOT EXISTS `admin_email_verification` (
+                                                          `admin_id` bigint(20) NOT NULL,
+    `token` varchar(64) NOT NULL COMMENT '인증에 사용할 랜덤 토큰',
+    `expired_date` datetime NOT NULL COMMENT '인증만료 시간',
+    `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`admin_id`),
+    CONSTRAINT `FK_admin_TO_admin_email_verification_1` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 테이블 데이터 atta_parune.admin_email_verification:~0 rows (대략적) 내보내기
+
+-- 테이블 atta_parune.user_email_verification 구조 내보내기
+CREATE TABLE IF NOT EXISTS `user_email_verification` (
+                                                         `user_id` bigint(20) NOT NULL,
+    `token` varchar(64) NOT NULL COMMENT '인증에 사용할 랜덤 토큰',
+    `expired_date` datetime NOT NULL COMMENT '인증만료 시간',
+    `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`user_id`),
+    CONSTRAINT `FK_user_TO_user_email_verification_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- 테이블 데이터 atta_parune.user_point_deposits:~0 rows (대략적) 내보내기
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;

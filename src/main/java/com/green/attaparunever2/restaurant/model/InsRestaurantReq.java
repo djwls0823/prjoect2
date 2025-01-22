@@ -28,7 +28,9 @@ public class InsRestaurantReq {
     @Schema(title = "식당 좌석 수", example = "8")
     private int maxCapacity;
     @Schema(title = "위도", example = "36.4")
-    private double let;
+    private double lat;
     @Schema(title = "경도", example = "22.5")
     private double lng;
+    @JsonIgnore
+    private String createdAt;
 }
