@@ -24,5 +24,5 @@ public class TicketPostReq {
 
     @NotNull
     @Schema(title = "만료 시간", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String expiredDate;
+    private LocalDateTime expiredDate;
 }

@@ -8,5 +8,11 @@ import lombok.ToString;
 @Schema(title = "식권 조회 요청")
 @ToString
 public class TicketGetReq {
+
+    @Schema(title = "주문 PK")
     private long orderId;
+
+    public TicketGetReq(long orderId) {
+        this.orderId = orderId;
+    }
 }
