@@ -21,6 +21,8 @@ public class TicketPostReq {
 
     @Schema(title = "주문 PK", requiredMode = Schema.RequiredMode.REQUIRED)
     private long orderId;
+
+    @NotNull
     @Schema(title = "만료 시간", requiredMode = Schema.RequiredMode.REQUIRED)
-    private LocalDateTime expiredDate;
+    private String expiredDate;
 }
