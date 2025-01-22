@@ -1,16 +1,16 @@
 package com.green.attaparunever2.order.ticket;
 
 import com.green.attaparunever2.common.model.ResultResponse;
+import com.green.attaparunever2.order.ticket.model.TicketGetReq;
+import com.green.attaparunever2.order.ticket.model.TicketGetRes;
 import com.green.attaparunever2.order.ticket.model.TicketPostReq;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,6 +38,18 @@ public class TicketController {
                 .resultData(1L)
                 .build();
 
+    }
+
+    @GetMapping
+    @Operation(summary = "식권 조회")
+    public ResultResponse<TicketGetRes> getTicket(@Valid @ModelAttribute long orderId) {
+        TicketGetReq req = new TicketGetReq(orderId);
+        TicketGetRes res = service.getTicket(req);
+        return ResultResponse.<TicketGetRes>builder()
+                .statusCode("200")
+                .resultMsg("식권 조회 완료")
+                .resultData(res)
+                .build();
     }
 
 }
