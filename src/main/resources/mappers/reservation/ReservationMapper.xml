@@ -3,5 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.attaparunever2.reservation.ReservationMapper">
-
+    <insert id="postReservation">
+        INSERT INTO reservation
+            (order_id, reservation_people_count, user_phone, reservation_time)
+        SELECT #{orderId}, #{reservationPeopleCount}, #{userPhone}, #{reservationTime}
+         WHERE ABS(TIMESTAMPDIFF(SECOND, NOW(), #{reservationTime})) >= 3600
+    </insert>
 </mapper>
