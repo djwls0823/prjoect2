@@ -17,4 +17,10 @@
              , let = #{let}
              , lng = #{lng}
     </insert>
+
+    <insert id="insHoliday">
+        INSERT INTO holiday
+           SET restaurant_id = #{restaurantId}
+             , closed_days = #{closedDays}
+    </insert>
 </mapper>

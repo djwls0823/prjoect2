@@ -2,6 +2,7 @@ package com.green.attaparunever2.restaurant;
 
 
 import com.green.attaparunever2.common.model.ResultResponse;
+import com.green.attaparunever2.restaurant.model.InsHolidayReq;
 import com.green.attaparunever2.restaurant.model.InsRestaurantReq;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +27,18 @@ public class RestaurantController {
                 .resultMsg("식당 등록 성공")
                 .resultData(result)
                 .build();
+    }
+
+    @PostMapping("holiday")
+    @Operation(summary = "휴무일 등록")
+    public ResultResponse<Integer> postHoliday(InsHolidayReq p){
+        int result = restaurantService.postHoliday(p);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode("200")
+                .resultMsg("휴무일 등록 성공")
+                .resultData(result)
+                .build();
+
     }
 }
