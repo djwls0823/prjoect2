@@ -21,7 +21,16 @@ public class OrderController {
 
     @PostMapping
     @Operation(summary = "주문 등록")
-    public ResultResponse<Long> postOrder(@RequestBody OrderPostReq p) {
+    public ResultResponse<Long> postOrder(@Valid @RequestBody OrderPostReq p
+                                        , BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResultResponse.<Long>builder()
+                    .statusCode("400")
+                    .resultMsg("주문 등록 실패")
+                    .resultData(0L)
+                    .build();
+        }
+
         service.postOrder(p);
         return ResultResponse.<Long>builder()
                 .statusCode("200")

@@ -5,8 +5,9 @@
 <mapper namespace="com.green.attaparunever2.order.OrderMapper">
 
     <insert id="postOrder" useGeneratedKeys="true" keyProperty="orderId">
-        INSERT INTO order
+        INSERT INTO `order`
         SET user_id = #{userId}
         , restaurant_id = #{restaurantId}
+        , reservation_status = #{reservationStatus}
     </insert>
 </mapper>
