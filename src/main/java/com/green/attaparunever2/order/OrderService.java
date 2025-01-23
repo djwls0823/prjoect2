@@ -1,5 +1,6 @@
 package com.green.attaparunever2.order;
 
+import com.green.attaparunever2.order.model.OrderAccessPatchReq;
 import com.green.attaparunever2.order.model.OrderDetailPostReq;
 import com.green.attaparunever2.order.model.OrderPostReq;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,9 @@ public class OrderService {
     public long postOrderDetail(OrderDetailPostReq p) {
         mapper.postOrderDetail(p);
         return p.getOrderDetailId();
+    }
+
+    public long updOrderAccess(OrderAccessPatchReq p) {
+        return mapper.updOrderAccess(p);
     }
 }
