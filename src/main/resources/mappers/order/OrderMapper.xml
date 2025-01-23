@@ -6,8 +6,7 @@
 
     <insert id="postOrder" useGeneratedKeys="true" keyProperty="orderId">
         INSERT INTO order
-        SET restaurant_id = #{restaurantId}
-        , user_id = #{userId}
-        , reservation_status = #{reservationStatus}
+        SET user_id = #{userId}
+        , restaurant_id = #{restaurantId}
     </insert>
 </mapper>
