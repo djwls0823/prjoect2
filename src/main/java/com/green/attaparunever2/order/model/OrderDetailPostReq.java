@@ -7,11 +7,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(title = "주문 등록")
-public class OrderPostReq {
+@Schema(title = "주문 상세 정보 등록")
+public class OrderDetailPostReq {
     @JsonIgnore
-    private long orderId;
+    private long orderDetailId;
 
-    private long userId;
-    private long restaurantId;
+    private long orderId;
+    private long menuId;
+    private int menuCount;
+    private int price;
 }
