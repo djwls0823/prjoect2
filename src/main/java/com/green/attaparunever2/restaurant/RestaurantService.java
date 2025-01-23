@@ -77,4 +77,10 @@ public class RestaurantService {
 
         return result;
     }
+
+    public int patchHoliday(UpdHolidayReq req) {
+        int result = restaurantMapper.updHoliday(req);
+
+        return result;
+    }
 }
