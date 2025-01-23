@@ -9,6 +9,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 
@@ -56,7 +57,30 @@ public class UserService {
             }
 
             // 인증번호 이메일 전송
-            mailSendService.sendAuthMail(req.getEmail(), req.getUserId(), userMailVerificationDTO.getToken());
+            mailSendService.sendAuthMail("/user/auth-token?userId=", req.getEmail(), req.getUserId(), userMailVerificationDTO.getToken());
+        }
+
+        return result;
+    }
+
+    // 회원정보 조회
+    public UserGetRes getUser(UserGetReq p) {
+        UserGetRes res = userMapper.selUserByUserId(p.getUserId());
+
+        if(res == null) {
+            throw new CustomException("회원정보를 불러올 수 없습니다.", HttpStatus.BAD_REQUEST);
+        }
+
+        return res;
+    }
+
+    // 회원삭제
+    @Transactional
+    public int delUser(UserDelReq p) {
+        int result = userMapper.delUser(p.getUserId());
+
+        if(result == 0) {
+            throw new CustomException("회원삭제에 실패 했습니다.", HttpStatus.BAD_REQUEST);
         }
 
         return result;
@@ -108,5 +132,20 @@ public class UserService {
         }
 
         return res;
+    }
+
+    // 아이디 찾기
+    public int findId(UserFindIdReq p) {
+        // 이메일이 존재하는지
+        UserDTO userDTO = userMapper.selUserByEmailAndName(p);
+
+        if(userDTO == null) {
+            throw new CustomException("이메일이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
+        } else {
+            // 인증번호 이메일 전송
+            mailSendService.sendFindIdMail(p.getEmail(), userDTO.getUid());
+        }
+
+        return 1;
     }
 }

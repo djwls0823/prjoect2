@@ -8,9 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AuthTokenReq {
+public class UserGetReq {
     @Schema(description = "유저 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long userId;
-    @Schema(description = "토큰", example = "42543242", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String token;
 }
