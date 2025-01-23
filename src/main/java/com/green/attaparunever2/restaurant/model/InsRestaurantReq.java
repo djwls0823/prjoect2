@@ -11,6 +11,11 @@ import lombok.Setter;
 public class InsRestaurantReq {
     @Schema(title = "관리자 PK", example = "3")
     private long adminId;
+
+    @JsonIgnore
+    @Schema(title = "식당 PK", example = "2")
+    private long restaurantId;
+
     @Schema(title = "카테고리 PK", example = "1")
     private long categoryId;
     @Schema(title = "식당 이름", example = "국밥")
