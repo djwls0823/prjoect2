@@ -4,4 +4,10 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.attaparunever2.order.OrderMapper">
 
+    <insert id="postOrder" useGeneratedKeys="true" keyProperty="orderId">
+        INSERT INTO order
+        SET restaurant_id = #{restaurantId}
+        , user_id = #{userId}
+        , reservation_status = #{reservationStatus}
+    </insert>
 </mapper>
