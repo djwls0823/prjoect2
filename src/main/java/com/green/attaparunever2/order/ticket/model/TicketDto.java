@@ -12,18 +12,15 @@ import java.time.LocalDateTime;
 @ToString
 @Schema(title = "식권 정보")
 public class TicketDto {
-    @Schema(title = "식권 PK")
     private long ticketId;
-    @Schema(title = "주문 PK")
     private long orderId;
-    @Schema(title = "만료시간")
     private String expiredDate;
-    @Schema(title = "식권 사용 여부", description = "0: 미사용, 1: 사용")
     private int ticketStatus;
-    @Schema(title = "식권 사용 일자")
     private String useDate;
-    @Schema(title = "식권 생성일")
     private String createdAt;
-    @Schema(title = "식권 금액")
     private int point;
+    private String restaurantName;
+    private int totalAmount;
+    private int personCount;
+    private String reservationTime;
 }

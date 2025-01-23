@@ -1,5 +1,6 @@
 package com.green.attaparunever2.order.ticket;
 
+import com.green.attaparunever2.order.ticket.model.TicketDto;
 import com.green.attaparunever2.order.ticket.model.TicketGetRes;
 import com.green.attaparunever2.order.ticket.model.TicketGetReq;
 import com.green.attaparunever2.order.ticket.model.TicketPostReq;
@@ -17,10 +18,15 @@ public class TicketService {
     }
 
     public TicketGetRes getTicket(TicketGetReq p) {
-        TicketGetRes res = mapper.getTicket(p);
-        if (res == null) {
+        TicketGetRes res = new TicketGetRes();
+
+        TicketDto ticket = mapper.getTicket(p);
+        res.setTicket(ticket);
+
+        if(ticket == null) {
             throw new RuntimeException("해당 주문에 대한 식권이 존재하지 않습니다.");
         }
+
         return res;
     }
 

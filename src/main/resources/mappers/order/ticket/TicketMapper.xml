@@ -10,17 +10,32 @@
     </insert>
 
     <select id="getTicket">
-        SELECT A.ticket_id AS ticketId
-        , A.order_id AS orderId
-        , A.expired_date AS expiredDate
-        , A.ticket_status AS ticketStatus
-        , A.use_date AS useDate
-        , A.created_at AS createdAt
-        , B.point
+        SELECT A.ticket_id AS ticketId,
+        A.order_id AS orderId,
+        A.expired_date AS expiredDate,
+        A.ticket_status AS ticketStatus,
+        A.use_date AS useDate,
+        A.created_at AS createdAt,
+        B.point,
+        D.restaurant_name AS restaurantName,
+        SUM(OD.price * OD.menu_count) AS totalAmount,
+        E.reservation_people_count AS personCount,
+        E.reservation_time AS reservationTime
         FROM ticket A
         INNER JOIN user_payment_member B
         ON A.order_id = B.order_id
-        WHERE order_id = #{orderId}
+        INNER JOIN `order` C
+        ON A.order_id = C.order_id
+        INNER JOIN restaurant D
+        ON C.restaurant_id = D.restaurant_id
+        LEFT JOIN order_detail OD
+        ON C.order_id = OD.order_id
+        LEFT JOIN reservation E
+        ON C.order_id = E.order_id
+        WHERE A.order_id = #{orderId}
+        GROUP BY A.ticket_id, A.order_id, A.expired_date, A.ticket_status,
+        A.use_date, A.created_at, B.point, C.restaurant_name, E.reservation_people_count
+        E.reservation_time
     </select>
 
 
