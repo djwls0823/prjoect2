@@ -16,7 +16,7 @@
         SUM(OD.menu_count) AS menuCount,
         E.reservation_people_count AS personCount,
         E.reservation_time AS reservationTime,
-        GROUP_CONCAT(F.menu_name SEPARATOR ', ') AS menuNames
+        GROUP_CONCAT(DISTINCT F.menu_name SEPARATOR ', ') AS menuNames
         FROM `order` C
         INNER JOIN restaurant D
         ON C.restaurant_id = D.restaurant_id

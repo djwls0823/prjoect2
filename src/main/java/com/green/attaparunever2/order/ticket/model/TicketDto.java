@@ -13,9 +13,10 @@ import java.time.LocalDateTime;
 @ToString
 @Schema(title = "식권 정보")
 public class TicketDto {
-    private String menuNames;
     private String restaurantName;
     private int totalAmount;
+    private int menuCount;
+    private String menuNames;
     private int personCount;
     private String reservationTime;
 }
