@@ -1,7 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.attaparunever2.admin.AdminMapper">
+    <insert id="insAdminEmailVerification">
+        INSERT INTO admin_email_verification
+        SET admin_id = #{adminId}
+        , token = #{token}
+        , expired_date = CURRENT_TIMESTAMP + INTERVAL 30 MINUTE
+    </insert>
 
+    <select id="selAdminEmailVerificationByAId">
+        SELECT admin_id AS adminId, token, expired_date AS expiredDate, created_at AS createdAt
+        FROM admin_email_verification A
+        WHERE admin_id = (
+        SELECT admin_id
+        FROM admin
+        WHERE aid = #{aid}
+        )
+    </select>
+
+    <select id="selAdminEmailVerificationByAdminId">
+        SELECT admin_id AS adminId, token, expired_date AS expiredDate, created_at  AS createdAt
+        FROM admin_email_verification
+        WHERE admin_id = #{adminId}
+    </select>
+
+    <delete id="delAdminEmailVerification">
+        DELETE FROM admin_email_verification
+        WHERE admin_id = #{adminId}
+    </delete>
+    
+    <insert id="insAdmin" useGeneratedKeys="true" keyProperty="adminId">
+        INSERT INTO `admin`
+           SET `role_id` = #{roleId}
+             , aid = #{aid}
+             , apw = #{apw}
+             , `name` = #{name}
+             , email = #{email}
+             , phone = #{phone}
+    </insert>
+
+    <select id="selAdminByAid">
+        SELECT admin_id AS adminId, role_id AS roleId, aid, apw, name, email, phone
+        FROM admin
+        WHERE aid = #{aid}
+    </select>
+
+    <select id="selAdminByAdminId">
+        SELECT admin_id AS adminId, role_id AS roleId, aid, apw, name, email, phone
+        FROM admin
+        WHERE admin_id = #{adminId}
+    </select>
+
+    <select id="selAdminByEmailAndName">
+        SELECT admin_id AS adminId
+        , role_id AS roleId
+        , aid, apw, name
+        , email, phone
+        FROM admin
+        WHERE email = #{email}
+        AND name = #{name}
+    </select>
+
+    <delete id="delAdmin">
+        DELETE FROM admin
+        WHERE admin_id = #{adminId}
+    </delete>
 </mapper>

@@ -4,6 +4,7 @@ package com.green.attaparunever2.restaurant;
 import com.green.attaparunever2.common.model.ResultResponse;
 import com.green.attaparunever2.restaurant.model.*;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("restaurant")
+@Tag(name = "식당")
 public class RestaurantController {
     private final RestaurantService restaurantService;
 
@@ -73,6 +75,18 @@ public class RestaurantController {
                 .statusCode("200")
                 .resultMsg("휴무일 보기 완료")
                 .resultData(res)
+                .build();
+    }
+
+    @PatchMapping
+    @Operation(summary = "식당 정보 수정")
+    public ResultResponse<Integer> updateRestaurant(@RequestBody UpdRestaurantReq req){
+        int result = restaurantService.patchRestaurant(req);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode("200")
+                .resultMsg("식당 정보 수정 완료")
+                .resultData(result)
                 .build();
     }
 }

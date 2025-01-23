@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @Schema(title = "예약 요청 등록")
 public class ReservationPostReq {
-    @Schema(title = "주문 PK")
+    @Schema(title = "주문 PK", requiredMode = Schema.RequiredMode.REQUIRED)
     private long orderId;
     @Schema(title = "예약 인원 수")
     private int reservationPeopleCount;
