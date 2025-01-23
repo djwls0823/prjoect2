@@ -32,9 +32,31 @@
         GROUP BY C.order_id
     </select>
 
-
-
-
+    <select id="getPaymentUser">
+        SELECT A.user_id AS userId
+        , A.point
+        , B.order_id AS orderId
+        , B.reservation_status AS reservationStatus
+        , C.created_at AS paymentDate
+        , C.ticket_id AS ticketId
+        , C.ticket_status AS ticketStatus
+        , D.menu_id AS menuId
+        , D.menu_count AS menuCount
+        , D.price
+        , E.menu_name AS menuName
+        FROM user_payment_member A
+        LEFT JOIN `order` B
+        ON A.order_id = B.order_id
+        LEFT JOIN ticket C
+        ON A.order_id = C.order_id
+        LEFT JOIN order_detail D
+        ON B.order_id = D.order_id
+        LEFT JOIN restaurant_menu E
+        ON D.menu_id = E.menu_id
+        WHERE A.user_id = #{userId}
+        GROUP BY A.user_id
+        order BY C.created_at DESC
+    </select>
 
 
 </mapper>
