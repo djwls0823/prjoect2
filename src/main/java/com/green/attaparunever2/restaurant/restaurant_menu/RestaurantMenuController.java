@@ -6,6 +6,7 @@ import com.green.attaparunever2.restaurant.restaurant_menu.model.SelMenuReq;
 import com.green.attaparunever2.restaurant.restaurant_menu.model.SelMenuRes;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class RestaurantMenuController {
 
     @GetMapping
     @Operation(summary = "카테고리 PK로 메뉴 보기")
-    public ResultResponse<List<SelMenuRes>> getMenu(SelMenuReq p){
+    public ResultResponse<List<SelMenuRes>> getMenu(@ParameterObject @ModelAttribute SelMenuReq p){
         List<SelMenuRes> res = restaurantMenuService.getMenu(p);
 
         return ResultResponse.<List<SelMenuRes>>builder()
