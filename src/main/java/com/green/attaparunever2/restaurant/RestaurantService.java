@@ -72,4 +72,9 @@ public class RestaurantService {
         return res;
     }
 
+    public int patchRestaurant(UpdRestaurantReq req) {
+        int result = restaurantMapper.updRestaurant(req);
+
+        return result;
+    }
 }
