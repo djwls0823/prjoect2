@@ -1,6 +1,7 @@
 package com.green.attaparunever2.order;
 
 import com.green.attaparunever2.common.model.ResultResponse;
+import com.green.attaparunever2.order.model.OrderDetailPostReq;
 import com.green.attaparunever2.order.model.OrderPostReq;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +36,26 @@ public class OrderController {
         return ResultResponse.<Long>builder()
                 .statusCode("200")
                 .resultMsg("주문 등록 완료")
+                .resultData(1L)
+                .build();
+    }
+
+    @PostMapping("/detail")
+    @Operation(summary = "주문 상세 정보 등록")
+    public ResultResponse<Long> postOrderDetail(@Valid @RequestBody OrderDetailPostReq p
+                                                , BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResultResponse.<Long>builder()
+                    .statusCode("400")
+                    .resultMsg("주문 상세 정보 등록 실패")
+                    .resultData(0L)
+                    .build();
+        }
+
+        service.postOrderDetail(p);
+        return ResultResponse.<Long>builder()
+                .statusCode("200")
+                .resultMsg("주문 상세 정보 등록 완료")
                 .resultData(1L)
                 .build();
     }

@@ -10,4 +10,12 @@
         , restaurant_id = #{restaurantId}
         , reservation_status = #{reservationStatus}
     </insert>
+
+    <insert id="postOrderDetail" useGeneratedKeys="true" keyProperty="orderDetailId">
+        INSERT INTO order_detail
+        SET order_id = #{orderId}
+        , menu_id = #{menuId}
+        , menu_count = #{menuCount}
+        , price = #{price}
+    </insert>
 </mapper>

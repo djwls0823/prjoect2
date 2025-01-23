@@ -1,5 +1,6 @@
 package com.green.attaparunever2.order;
 
+import com.green.attaparunever2.order.model.OrderDetailPostReq;
 import com.green.attaparunever2.order.model.OrderPostReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,5 +13,10 @@ public class OrderService {
     public long postOrder(OrderPostReq p) {
         mapper.postOrder(p);
         return p.getOrderId();
+    }
+
+    public long postOrderDetail(OrderDetailPostReq p) {
+        mapper.postOrderDetail(p);
+        return p.getOrderDetailId();
     }
 }
