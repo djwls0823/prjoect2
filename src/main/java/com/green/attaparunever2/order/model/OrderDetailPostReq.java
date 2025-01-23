@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(title = "주문 상세 정보")
+@Schema(title = "주문 상세")
 public class OrderDetailPostReq {
     @JsonIgnore
     private long orderDetailId;

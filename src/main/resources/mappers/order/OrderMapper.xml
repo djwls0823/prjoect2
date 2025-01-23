@@ -18,4 +18,12 @@
         , menu_count = #{menuCount}
         , price = #{price}
     </insert>
+
+    <update id="updOrderAccess">
+        UPDATE `order`
+        SET reservation_status = #{reservationStatus}
+        WHERE order_id = #{orderId}
+    </update>
+
+
 </mapper>
