@@ -56,6 +56,29 @@
         WHERE A.uid = #{uid}
     </select>
 
+    <select id="selUserByUserId">
+        SELECT A.user_id AS userId,  B.name AS companyName
+        , A.company_id AS companyId
+        , A.role_id AS roleId
+        , A.uid, A.upw, A.name, A.pic
+        , A.email, A.phone, A.point
+        FROM user A INNER JOIN company B
+        ON A.company_id = B.company_id
+        WHERE A.user_id = #{userId}
+    </select>
+
+    <select id="selUserByEmailAndName">
+        SELECT A.user_id AS userId,  B.name AS companyName
+        , A.company_id AS companyId
+        , A.role_id AS roleId
+        , A.uid, A.upw, A.name, A.pic
+        , A.email, A.phone, A.point
+        FROM user A INNER JOIN company B
+        ON A.company_id = B.company_id
+        WHERE A.email = #{email}
+        AND A.name = #{name}
+    </select>
+
     <delete id="delUser">
         DELETE FROM user
         WHERE user_id = #{userId}

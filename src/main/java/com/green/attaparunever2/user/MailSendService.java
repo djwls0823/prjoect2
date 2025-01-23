@@ -34,8 +34,8 @@ public class MailSendService {
         return buffer.toString();
     }
 
-    //인증메일 보내기
-    public boolean sendAuthMail(String email, long userId, String authCode) {
+    //인증메일 보내기(사용자)
+    public boolean sendAuthMail(String url, String email, long userId, String authCode) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
@@ -45,11 +45,40 @@ public class MailSendService {
             helper.setText(new StringBuffer()
                     .append("<h1>[이메일 인증]</h1>")
                     .append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
-                    .append("<a href='http://localhost:8080/api/user/auth-token?userId=")
+                    .append("<a href='http://localhost:8080/api" + url)
                     .append(userId)
                     .append("&token=")
                     .append(authCode)
                     .append("' target='_blank'>이메일 인증 확인 (클릭)</a>")
+                    .append("</div>")
+                    .append("<div class='footer'>")
+                    .append("<p>감사합니다.<br>관리자 드림</p>")
+                    .append("</div>")
+                    .toString(), true);
+            mailSender.send(mimeMessage);
+            return true;
+        } catch (MessagingException e) {
+            // 로깅 처리 추가 (개선)
+            log.error("이메일 전송 실패: " + e.getMessage());
+            return false;
+        }
+    }
+
+    //유저아이디 메일 보내기
+    public boolean sendFindIdMail(String email, String uId) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+            helper.setFrom("jumoney1012@gmail.com");
+            helper.setTo(email);
+            helper.setSubject("아따 빠르네 아이디 찾기 메일 입니다.");
+            helper.setText(new StringBuffer()
+                    .append("<div>")
+                    .append("<h1>회원님의 아이디는</h1>")
+                    .append("<h3>")
+                    .append(uId)
+                    .append("</h3>")
+                    .append("<h4> 입니다.</h4>")
                     .append("</div>")
                     .append("<div class='footer'>")
                     .append("<p>감사합니다.<br>관리자 드림</p>")
