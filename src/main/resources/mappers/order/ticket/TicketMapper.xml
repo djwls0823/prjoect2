@@ -10,6 +10,20 @@
     </insert>
 
     <select id="getTicket">
-
+        SELECT A.ticket_id AS ticketId
+        , A.order_id AS orderId
+        , A.expired_date AS expiredDate
+        , A.ticket_status AS ticketStatus
+        , A.use_date AS useDate
+        , A.created_at AS createdAt
+        , B.point
+        FROM ticket A
+        INNER JOIN user_payment_member B
+        ON A.order_id = B.order_id
+        WHERE order_id = #{orderId}
     </select>
+
+
+
+
 </mapper>
