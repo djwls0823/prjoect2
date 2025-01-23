@@ -90,4 +90,17 @@
             </set>
          WHERE A.restaurant_id = #{restaurantId}
     </update>
+    
+    <update id="updHoliday">
+        UPDATE holiday A
+         INNER JOIN restaurant B
+            ON A.restaurant_id = B.restaurant_id
+        <set>
+            <if test=" closedDays != null and closedDays != '' ">
+                A.closed_days = #{closedDays}
+            </if>
+        </set>
+         WHERE B.restaurant_id = #{restaurantId}
+           AND A.holiday_id = #{holidayId}
+    </update>
 </mapper>

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.transform.Result;
 import java.util.List;
 
 @RestController
@@ -86,6 +87,18 @@ public class RestaurantController {
         return ResultResponse.<Integer>builder()
                 .statusCode("200")
                 .resultMsg("식당 정보 수정 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @PatchMapping("holiday")
+    @Operation(summary = "휴무일 변경")
+    public ResultResponse<Integer> updateHoliday(@RequestBody UpdHolidayReq req){
+        int result = restaurantService.patchHoliday(req);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode("200")
+                .resultMsg("휴무일 변경 완료")
                 .resultData(result)
                 .build();
     }
