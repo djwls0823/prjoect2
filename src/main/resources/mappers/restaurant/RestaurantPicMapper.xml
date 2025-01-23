@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.attaparunever2.restaurant.RestaurantPicMapper">
+    <insert id="insRestaurantPic">
+        INSERT INTO restaurant_pic
+        ( restaurant_id, file_path )
+        VALUES
+        <foreach collection="filePath" item="pic" separator=",">
+            ( #{restaurantId}, #{pic} )
+        </foreach>
+    </insert>
+</mapper>
