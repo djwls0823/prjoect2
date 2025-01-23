@@ -9,6 +9,7 @@ import java.util.List;
 public interface RestaurantMapper {
     int insRestaurant(InsRestaurantReq p);
     SelRestaurantRes selRestaurantOne(SelRestaurantReq p);
+    List<SelRestaurantAroundRes> selRestaurantAround(SelRestaurantAroundReq p);
 
     int insHoliday(InsHolidayReq p);
     List<SelHolidayRes> selHolidays(SelHolidayReq p);
