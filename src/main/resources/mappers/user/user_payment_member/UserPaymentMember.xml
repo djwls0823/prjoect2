@@ -4,4 +4,55 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.attaparunever2.user.user_payment_member.UserPaymentMemberMapper">
 
+    <select id="getPoint">
+        SELECT
+        point
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="getPaymentMember">
+        SELECT
+        b.reservation_people_count AS reservationPeopleCount
+        FROM `order` a
+        INNER JOIN reservation b ON a.order_id = b.order_id
+        WHERE a.order_id = #{orderId}
+    </select>
+
+    <select id="getPaymentInfo">
+        SELECT
+        d.restaurant_name AS restaurantName
+        , (SELECT name FROM user WHERE user_id = a.user_id) AS name
+        , b.price
+        FROM `order` a
+        LEFT OUTER JOIN order_detail b ON a.order_id = b.order_id
+        LEFT OUTER JOIN user_payment_member c ON a.order_id = c.order_id
+        INNER JOIN restaurant d ON a.restaurant_id = d.restaurant_id
+        WHERE 1=1
+        AND a.order_id = #{orderId}
+        AND a.user_id = #{userId}
+    </select>
+
+    <select id="getOrderPrice">
+        SELECT
+        b.price
+        FROM `order` a
+        LEFT OUTER JOIN order_detail b ON a.order_id = b.order_id
+        WHERE a.order_id = #{orderId}
+    </select>
+
+
+    <insert id="insertPaymentMember">
+        INSERT INTO user_payment_member (
+        order_id
+        , user_id
+        , point
+        , approval_status
+        ) VALUES (
+        #{orderId}
+        , #{userId}
+        , #{point}
+        , 0
+        )
+    </insert>
 </mapper>
