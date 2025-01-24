@@ -67,41 +67,35 @@ public class RestaurantService {
     }
 
     public List<SelRestaurantAroundRes> getRestaurantAround(SelRestaurantAroundReq p){
-        if(p.getOrderFilter() == 1) {
-            double latitude = p.getUserLat(); // 위도
-            double longitude = p.getUserLng(); // 경도
+        double latitude = p.getUserLat(); // 위도
+        double longitude = p.getUserLng(); // 경도
 
-            // 반경 3km
-            double radiusInKm = 3.0;
+        // 반경 3km
+        double radiusInKm = 3.0;
 
-            // 위도 1도의 거리 (고정: 111km)
-            double latitudeDegreeInKm = 111.0;
-            double latitudeDiff = radiusInKm / latitudeDegreeInKm;
+        // 위도 1도의 거리 (고정: 111km)
+        double latitudeDegreeInKm = 111.0;
+        double latitudeDiff = radiusInKm / latitudeDegreeInKm;
 
-            // 경도 1도의 거리 (위도에 따라 다름)
-            double longitudeDegreeInKm = 111.0 * Math.cos(Math.toRadians(latitude));
-            double longitudeDiff = radiusInKm / longitudeDegreeInKm;
+        // 경도 1도의 거리 (위도에 따라 다름)
+        double longitudeDegreeInKm = 111.0 * Math.cos(Math.toRadians(latitude));
+        double longitudeDiff = radiusInKm / longitudeDegreeInKm;
 
-            // 위도와 경도의 범위 계산
-            double minLatitude = latitude - latitudeDiff; // 가까운 위도
-            double maxLatitude = latitude + latitudeDiff; // 먼 위도
-            double minLongitude = longitude - longitudeDiff; // 가까운 경도
-            double maxLongitude = longitude + longitudeDiff; // 먼 경도
+        // 위도와 경도의 범위 계산
+        double minLatitude = latitude - latitudeDiff; // 가까운 위도
+        double maxLatitude = latitude + latitudeDiff; // 먼 위도
+        double minLongitude = longitude - longitudeDiff; // 가까운 경도
+        double maxLongitude = longitude + longitudeDiff; // 먼 경도
 
-            p.setSysMinLat(minLatitude);
-            p.setSysMinLng(minLongitude);
-            p.setSysMaxLat(maxLatitude);
-            p.setSysMaxLng(maxLongitude);
+        p.setSysMinLat(minLatitude);
+        p.setSysMinLng(minLongitude);
+        p.setSysMaxLat(maxLatitude);
+        p.setSysMaxLng(maxLongitude);
 
-            log.info("aiobhdfibhfdibhi {} asda {} asdasd", p.getSysMinLat(), p.getSysMinLng());
-            log.info("asdasifjaisfjasi {} {}", p.getSysMaxLat(), p.getSysMaxLng());
+        log.info("aiobhdfibhfdibhi {} asda {} asdasd", p.getSysMinLat(), p.getSysMinLng());
+        log.info("asdasifjaisfjasi {} {}", p.getSysMaxLat(), p.getSysMaxLng());
 
-            log.info("오더 필터 : {} 검색 필터 {}", p.getOrderFilter(), p.getSearchFilter());
-
-            List<SelRestaurantAroundRes> res = restaurantMapper.selRestaurantAround(p);
-
-            return res;
-        }
+        log.info("오더 필터 : {} 검색 필터 {}", p.getOrderFilter(), p.getSearchFilter());
 
         List<SelRestaurantAroundRes> res = restaurantMapper.selRestaurantAround(p);
 

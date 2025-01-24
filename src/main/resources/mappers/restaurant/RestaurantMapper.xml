@@ -43,19 +43,19 @@
              GROUP BY A.restaurant_id
         ), 40) AS avgRestaurant
           FROM restaurant F
+        WHERE `status` = 0
         <if test=" searchFilter != null and searchFilter != '' ">
-         WHERE F.restaurant_name LIKE '%${searchFilter}%'
+            AND F.restaurant_name LIKE '%${searchFilter}%'
         </if>
-           AND `status` = 0
+        AND lat &gt; #{sysMinLat}
+        AND lat &lt; #{sysMaxLat}
+        AND lng &gt; #{sysMinLng}
+        AND lng &lt; #{sysMaxLng}
         <if test = " orderFilter != null and orderFilter != '' ">
-           AND lat &gt; #{sysMinLat}
-           AND lat &lt; #{sysMaxLat}
-           AND lng &gt; #{sysMinLng}
-           AND lng &lt; #{sysMaxLng}
+            ORDER BY distance ASC;
         </if>
-         ORDER BY distance ASC;
     </select>
-    
+
     <insert id="insHoliday">
         INSERT INTO holiday
            SET restaurant_id = #{restaurantId}
