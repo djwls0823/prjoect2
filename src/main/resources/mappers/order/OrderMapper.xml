@@ -29,7 +29,7 @@
         B.menu_count AS menuCount,
         B.price AS menuPrice,
         C.menu_name AS menuName,
-        D.point,
+        SUM(B.price * B.menu_count) AS totalPrice,
         R.reservation_id AS reservationId,
         R.reservation_time AS reservationTime,
         R.reservation_people_count AS reservationPeopleCount,
@@ -41,8 +41,6 @@
         ON A.order_id = B.order_id
         LEFT JOIN restaurant_menu C
         ON B.menu_id = C.menu_id
-        LEFT JOIN user_payment_member D
-        ON A.order_id = D.order_id
         LEFT JOIN reservation R
         ON A.order_id = R.order_id
         WHERE A.order_id = #{orderId}

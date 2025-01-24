@@ -17,13 +17,25 @@ public class OrderDto {
     private long userId;
 
     @Schema(title = "주문 상태")
-    private int orderStatus;
+    private String orderStatus;
 
     @Schema(title = "주문 날짜")
     private String orderDate;
 
-    @Schema(title = "메뉴 목록")
-    private List<MenuDto> menuList;
+    @Schema(title = "메뉴 ID")
+    private long menuId;
+
+    @Schema(title = "메뉴 이름")
+    private String menuName;
+
+    @Schema(title = "메뉴 수량")
+    private int menuCount;
+
+    @Schema(title = "메뉴 가격")
+    private int menuPrice;
+
+    @Schema(title = "총 가격")
+    private int totalPrice;
 
     @Schema(title = "예약 ID")
     private long reservationId;
@@ -43,20 +55,5 @@ public class OrderDto {
     @Schema(title = "예약 생성일")
     private String reservationCreatedAt;
 
-    @Getter
-    @Setter
-    @Schema(title = "메뉴 정보")
-    public static class MenuDto {
-        @Schema(title = "메뉴 ID")
-        private long menuId;
 
-        @Schema(title = "메뉴 이름")
-        private String menuName;
-
-        @Schema(title = "메뉴 수량")
-        private int menuCount;
-
-        @Schema(title = "메뉴 가격")
-        private int menuPrice;
-    }
 }

@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 @Schema(title = "주문 조회 응답")
 public class OrderGetRes {
-
+    @Schema(title = "주문 정보")
+    private OrderDto orderList;
 }
