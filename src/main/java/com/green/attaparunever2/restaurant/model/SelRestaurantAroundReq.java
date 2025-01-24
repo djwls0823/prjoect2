@@ -13,15 +13,19 @@ import lombok.ToString;
 public class SelRestaurantAroundReq {
     @Schema(title = "검색", example = "국밥")
     private String searchFilter;
-    @Schema(title = "거리순, 빠른 식사순", example = "36.1")
+    @Schema(title = "전체, 거리순", example = "1")
     private int orderFilter;
-    @Schema(title = "유저 위도", example = "33")
+    @Schema(title = "유저 위도", example = "35.86")
     private double userLat;
-    @Schema(title = "유저 경도", example = "33")
+    @Schema(title = "유저 경도", example = "128.59")
     private double userLng;
     @JsonIgnore
-    private double sysLat;
+    private double sysMinLng;
     @JsonIgnore
-    private double sysLng;
+    private double sysMinLat;
+    @JsonIgnore
+    private double sysMaxLat;
+    @JsonIgnore
+    private double sysMaxLng;
 
 }

@@ -12,6 +12,6 @@ public class SelRestaurantAroundRes {
     private String restaurantName;
     @Schema(title = "식당 주소")
     private String restaurantAddress;
-    @Schema(title = "식당 전화번호")
-    private String restaurantNumber;
+    @Schema(title = "식당 평균 식사 시간")
+    private double avgRestaurant;
 }
