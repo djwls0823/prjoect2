@@ -19,6 +19,36 @@
         , price = #{price}
     </insert>
 
+    <select id="getOrder">
+        SELECT
+        A.order_id AS orderId,
+        A.user_id AS userId,
+        A.reservation_status AS orderStatus,
+        A.created_at AS orderDate,
+        B.menu_id AS menuId,
+        B.menu_count AS menuCount,
+        B.price AS menuPrice,
+        C.menu_name AS menuName,
+        D.point,
+        R.reservation_id AS reservationId,
+        R.reservation_time AS reservationTime,
+        R.reservation_people_count AS reservationPeopleCount,
+        R.reservation_cancel_reason AS reservationCancelReason,
+        R.user_phone AS userPhone,
+        R.created_at AS reservationCreatedAt
+        FROM `order` A
+        LEFT JOIN order_detail B
+        ON A.order_id = B.order_id
+        LEFT JOIN restaurant_menu C
+        ON B.menu_id = C.menu_id
+        LEFT JOIN user_payment_member D
+        ON A.order_id = D.order_id
+        LEFT JOIN reservation R
+        ON A.order_id = R.order_id
+        WHERE A.order_id = #{orderId}
+        GROUP BY A.order_id, B.menu_id
+    </select>
+
     <update id="updOrderAccess">
         UPDATE `order`
         SET reservation_status = #{reservationStatus}
