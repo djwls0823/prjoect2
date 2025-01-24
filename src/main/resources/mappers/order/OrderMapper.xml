@@ -5,8 +5,25 @@
 <mapper namespace="com.green.attaparunever2.order.OrderMapper">
 
     <insert id="postOrder" useGeneratedKeys="true" keyProperty="orderId">
-        INSERT INTO order
+        INSERT INTO `order`
         SET user_id = #{userId}
         , restaurant_id = #{restaurantId}
+        , reservation_status = #{reservationStatus}
     </insert>
+
+    <insert id="postOrderDetail" useGeneratedKeys="true" keyProperty="orderDetailId">
+        INSERT INTO order_detail
+        SET order_id = #{orderId}
+        , menu_id = #{menuId}
+        , menu_count = #{menuCount}
+        , price = #{price}
+    </insert>
+
+    <update id="updOrderAccess">
+        UPDATE `order`
+        SET reservation_status = #{reservationStatus}
+        WHERE order_id = #{orderId}
+    </update>
+
+
 </mapper>
