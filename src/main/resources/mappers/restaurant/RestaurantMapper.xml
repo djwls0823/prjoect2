@@ -29,15 +29,31 @@
     </select>
 
     <select id="selRestaurantAround">
-        SELECT restaurant_name AS restaurantName
-             , restaurant_address AS restaurantAddress
-             , restaurant_number AS restaurantNumber
-          FROM restaurant
-         WHERE `status` = 0
-           AND lat &gt; #{userLat}
-           AND lat &lt; #{sysLat}
-           AND lng &gt; #{userLng}
-           AND lng &lt; #{sysLng}
+        SELECT F.restaurant_name AS restaurantName
+             , F.restaurant_address AS restaurantAddress
+             , (6371 * ACOS(COS(RADIANS(40)) * COS(RADIANS(F.lat)) * COS(RADIANS(F.lng) - RADIANS(127)) + SIN(RADIANS(40)) * SIN(RADIANS(F.lat)))) AS DISTANCE,
+        IFNULL((
+            SELECT AVG(ABS(TIMESTAMPDIFF(MINUTE, B.reservation_time, C.use_date)))
+              FROM `order` A
+             INNER JOIN reservation B
+                ON A.order_id = B.order_id
+             INNER JOIN ticket C
+                ON B.order_id = C.order_id
+             WHERE A.restaurant_id = F.restaurant_id
+             GROUP BY A.restaurant_id
+        ), 40) AS avgRestaurant
+          FROM restaurant F
+        <if test=" searchFilter != null and searchFilter != '' ">
+         WHERE F.restaurant_name LIKE '%${searchFilter}%'
+        </if>
+           AND `status` = 0
+        <if test = " orderFilter != null and orderFilter != '' ">
+           AND lat &gt; #{sysMinLat}
+           AND lat &lt; #{sysMaxLat}
+           AND lng &gt; #{sysMinLng}
+           AND lng &lt; #{sysMaxLng}
+        </if>
+         ORDER BY distance ASC;
     </select>
     
     <insert id="insHoliday">
