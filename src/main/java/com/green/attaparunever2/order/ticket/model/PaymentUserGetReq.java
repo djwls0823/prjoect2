@@ -10,4 +10,8 @@ import lombok.ToString;
 public class PaymentUserGetReq {
     @Schema(title = "사용자 PK")
     private long userId;
+
+    public PaymentUserGetReq(long userId) {
+        this.userId = userId;
+    }
 }

@@ -1,13 +1,12 @@
 package com.green.attaparunever2.order;
 
 import com.green.attaparunever2.common.model.ResultResponse;
-import com.green.attaparunever2.order.model.OrderAccessPatchReq;
-import com.green.attaparunever2.order.model.OrderDetailPostReq;
-import com.green.attaparunever2.order.model.OrderPostReq;
+import com.green.attaparunever2.order.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +34,17 @@ public class OrderController {
                 .statusCode("200")
                 .resultMsg("주문 등록 완료")
                 .resultData(1L)
+                .build();
+    }
+
+    @GetMapping
+    @Operation(summary = "주문 조회")
+    public ResultResponse<OrderGetRes> getOrder(@ParameterObject @ModelAttribute OrderGetReq p) {
+        OrderGetRes res = service.getOrder(p);
+        return ResultResponse.<OrderGetRes>builder()
+                .statusCode("200")
+                .resultMsg("주문 조회 완료")
+                .resultData(res)
                 .build();
     }
 
@@ -77,6 +87,5 @@ public class OrderController {
                 .resultData(1L)
                 .build();
     }
-
 
 }
