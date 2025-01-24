@@ -1,6 +1,7 @@
 package com.green.attaparunever2.order;
 
 import com.green.attaparunever2.order.model.*;
+import com.green.attaparunever2.order.ticket.TicketMapper;
 import com.green.attaparunever2.order.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.jdbc.DataSourceUnwrapper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderMapper mapper;
+    private final TicketMapper ticketMapper;
     private final TicketService ticketService;
 
     public long postOrder(OrderPostReq p) {
