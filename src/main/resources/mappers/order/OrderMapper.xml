@@ -53,5 +53,22 @@
         WHERE order_id = #{orderId}
     </update>
 
+    <select id="getPaymentRestaurant">
+        SELECT
+        A.restaurant_id AS restaurantId,
+        C.menu_id AS menuId,
+        C.menu_name AS menuName,
+        SUM(B.menu_count) AS totalCount,
+        SUM(B.menu_count * B.price) AS totalSales,
+        DATE(A.created_at) AS orderDate
+        FROM `order` A
+        LEFT JOIN order_detail B ON A.order_id = B.order_id
+        LEFT JOIN restaurant_menu C ON B.menu_id = C.menu_id
+        WHERE A.restaurant_id = #{restaurantId}
+        AND STR_TO_DATE(A.created_at, '%Y-%m-%d %H:%i:%s') BETWEEN '2025-01-22' AND '2025-01-30'
+        GROUP BY A.restaurant_id, C.menu_id, A.created_at
+        ORDER BY DATE(A.created_at) DESC
+    </select>
+
 
 </mapper>
