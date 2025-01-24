@@ -45,7 +45,7 @@ public class MailSendService {
             helper.setText(new StringBuffer()
                     .append("<h1>[이메일 인증]</h1>")
                     .append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
-                    .append("<a href='http://localhost:8080/api" + url)
+                    .append("<a href='http://112.222.157.156:5222/api" + url)
                     .append(userId)
                     .append("&token=")
                     .append(authCode)
