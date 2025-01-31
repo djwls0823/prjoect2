@@ -57,10 +57,10 @@ public class RestaurantMenuController {
 
     @PatchMapping
     @Operation(summary = "메뉴 정보 수정")
-    public ResultResponse<String> updateMenu(@RequestPart MultipartFile pic, @RequestPart UpdMenuReq p){
-        String result = restaurantMenuService.updRestaurantMenu(pic, p);
+    public ResultResponse<Integer> updateMenu(@RequestBody UpdMenuReq p){
+        int result = restaurantMenuService.updRestaurantMenu(p);
 
-        return ResultResponse.<String>builder()
+        return ResultResponse.<Integer>builder()
                 .statusCode("200")
                 .resultMsg("메뉴 수정 완료")
                 .resultData(result)

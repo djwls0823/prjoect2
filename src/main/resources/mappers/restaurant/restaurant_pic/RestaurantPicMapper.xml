@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.green.attaparunever2.restaurant.RestaurantPicMapper">
+<mapper namespace="com.green.attaparunever2.restaurant.restaurant_pic.RestaurantPicMapper">
     <insert id="insRestaurantPic">
         INSERT INTO restaurant_pic
         ( restaurant_id, file_path )
@@ -11,4 +11,10 @@
             ( #{restaurantId}, #{pic} )
         </foreach>
     </insert>
+
+    <update id="updRestaurantMenuPic">
+        UPDATE restaurant_menu
+           SET menu_pic = #{picName}
+         WHERE menu_id = #{menuId}
+    </update>
 </mapper>

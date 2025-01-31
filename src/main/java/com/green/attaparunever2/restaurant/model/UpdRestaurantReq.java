@@ -30,6 +30,4 @@ public class UpdRestaurantReq {
     private double lat;
     @Schema(title = "경도")
     private double lng;
-    @Schema(title = "식당 사진")
-    private List<String> filePath;
 }

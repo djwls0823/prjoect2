@@ -14,8 +14,6 @@ public class UpdMenuReq {
     private long menuId;
     @Schema(title = "카테고리 PK")
     private long categoryId;
-    @Schema(title = "메뉴 사진")
-    private MultipartFile menuPic;
     @Schema(title = "메뉴 이름")
     private String menuName;
     @Schema(title = "가격")
@@ -24,6 +22,4 @@ public class UpdMenuReq {
     private String details;
     @Schema(title = "주문 가능 상태", description = "true = 1, false = 0")
     private int available;
-    @JsonIgnore
-    private String picName;
 }
