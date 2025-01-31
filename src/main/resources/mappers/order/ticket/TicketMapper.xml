@@ -7,13 +7,22 @@
         INSERT INTO ticket
         SET order_id = #{orderId}
         , expired_date = #{expiredDate}
+        , qr_code = #{qrCode}
+        , point = #{point}
     </insert>
+
+    <select id="getUserPoint">
+        SELECT point
+        FROM user_payment_member
+        WHERE user_id = #{userId}
+    </select>
 
     <select id="getTicket">
         SELECT
         D.restaurant_name AS restaurantName,
-        B.point AS totalAmount,
+        B.point,
         SUM(OD.menu_count) AS menuCount,
+        SUM(OD.menu_count * OD.price) AS totalOrderAmount,
         E.reservation_people_count AS personCount,
         E.reservation_time AS reservationTime,
         GROUP_CONCAT(DISTINCT F.menu_name SEPARATOR ', ') AS menuNames
@@ -31,6 +40,17 @@
         WHERE C.order_id = #{orderId}
         GROUP BY C.order_id
     </select>
+
+    <delete id="delTicket">
+        DELETE A
+        FROM ticket A
+        INNER JOIN `order` B
+        ON A.order_id = B.order_id
+        INNER JOIN reservation C
+        ON B.order_id = C.order_id
+        WHERE TIMESTAMPDIFF(HOUR, C.created_at, NOW()) &lt;= 1
+        AND A.order_id = #{orderId}
+    </delete>
 
 
 </mapper>

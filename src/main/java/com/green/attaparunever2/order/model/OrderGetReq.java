@@ -10,8 +10,14 @@ import lombok.ToString;
 public class OrderGetReq {
     private long orderId;
 
+    public OrderGetReq(long orderId) {
+        this.orderId = orderId;
+    }
+
     @Schema(title = "주문 ID")
     public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
+
+
 }

@@ -2,14 +2,11 @@ package com.green.attaparunever2.order.ticket.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -25,4 +22,11 @@ public class TicketPostReq {
     @NotNull
     @Schema(title = "만료 시간", requiredMode = Schema.RequiredMode.REQUIRED)
     private String expiredDate;
+
+    @NotNull
+    @Schema(title = "QR 코드", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String qrCode;
+
+    @Schema(title = "사용자 포인트")
+    private int point;
 }
