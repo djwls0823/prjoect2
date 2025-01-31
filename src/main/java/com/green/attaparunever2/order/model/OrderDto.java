@@ -4,8 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Schema(title = "주문 정보")
@@ -16,8 +14,11 @@ public class OrderDto {
     @Schema(title = "사용자 ID")
     private long userId;
 
-    @Schema(title = "주문 상태")
-    private String orderStatus;
+    @Schema(title = "예약 여부")
+    private int reservationYn;
+
+    @Schema(title = "예약 상태")
+    private int reservationStatus;
 
     @Schema(title = "주문 날짜")
     private String orderDate;

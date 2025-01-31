@@ -14,10 +14,13 @@ public class OrderDetailPostReq {
 
     @Schema(title = "주문 PK")
     private long orderId;
+
     @Schema(title = "메뉴 PK")
     private long menuId;
+
     @Schema(title = "메뉴 수량")
     private int menuCount;
+
     @Schema(title = "메뉴 주문 가격")
     private int price;
 }
