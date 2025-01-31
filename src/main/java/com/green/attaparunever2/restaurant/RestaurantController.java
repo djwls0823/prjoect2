@@ -36,7 +36,7 @@ public class RestaurantController {
     @Operation(summary = "식당 보기")
     public ResultResponse<SelRestaurantRes> getRestaurant(@ParameterObject @ModelAttribute SelRestaurantReq p){
         SelRestaurantRes res = restaurantService.getRestaurant(p);
-        
+
         return ResultResponse.<SelRestaurantRes>builder()
                 .statusCode("200")
                 .resultMsg("식당 보기 성공")
@@ -55,7 +55,7 @@ public class RestaurantController {
                 .resultData(res)
                 .build();
     }
-    
+
     @PostMapping("holiday")
     @Operation(summary = "휴무일 등록")
     public ResultResponse<Integer> postHoliday(@RequestBody InsHolidayReq p){
