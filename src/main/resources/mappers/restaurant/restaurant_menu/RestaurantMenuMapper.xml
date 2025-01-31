@@ -47,4 +47,25 @@
         WHERE menu_id = #{menuId}
     </update>
 
+    <insert id="postCategory">
+        INSERT INTO restaurant_menu_category
+           SET restaurant_id = #{restaurantId}
+             , category_name = #{categoryName}
+    </insert>
+
+    <update id="updCategory">
+        UPDATE restaurant_menu_category
+        <set>
+            <if test=" categoryName != null and categoryName != '' ">
+                category_name = #{categoryName}
+            </if>
+        </set>
+        WHERE category_id = #{categoryId}
+    </update>
+
+    <delete id="delCategory">
+        DELETE FROM restaurant_menu_category
+         WHERE category_id = #{categoryId}
+    </delete>
+
 </mapper>
