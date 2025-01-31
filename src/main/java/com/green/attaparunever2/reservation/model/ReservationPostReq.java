@@ -18,4 +18,6 @@ public class ReservationPostReq {
     private String userPhone;
     @Schema(title = "예약 시간")
     private String reservationTime;
+    @Schema(title = "식당 PK(예약요청 알림 전송을 위해 필요)", requiredMode = Schema.RequiredMode.REQUIRED)
+    private long restaurantId;
 }

@@ -24,6 +24,10 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.webjars:sockjs-client:1.5.1'  // SockJS 클라이언트 의존성 추가
+
+
     //Spring Reactive Web 추가
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
