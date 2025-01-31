@@ -78,4 +78,19 @@ public class RestaurantMenuService {
         }
         return savedPicName;
     }
+
+    public int postCategory(PostCategoryReq p) {
+        int result = restaurantMenuMapper.postCategory(p);
+        return result;
+    }
+
+    public int updCategory(UpdCategoryReq p) {
+        int result = restaurantMenuMapper.updCategory(p);
+        return result;
+    }
+
+    public int delCategory(DelCategoryReq p) {
+        int result = restaurantMenuMapper.delCategory(p);
+        return result;
+    }
 }
