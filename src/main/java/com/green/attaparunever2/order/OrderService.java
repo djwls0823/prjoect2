@@ -5,6 +5,7 @@ import com.green.attaparunever2.order.ticket.TicketMapper;
 import com.green.attaparunever2.order.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.jdbc.DataSourceUnwrapper;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ public class OrderService {
     private final OrderMapper mapper;
     private final TicketMapper ticketMapper;
     private final TicketService ticketService;
+    private final SimpMessagingTemplate messagingTemplate;
 
     public long postOrder(OrderPostReq p) {
         mapper.postOrder(p);
@@ -25,6 +27,12 @@ public class OrderService {
     }
 
     public long updOrderAccess(OrderAccessPatchReq p) {
+        // 사용자에게 예약결과 알림 설정
+        messagingTemplate.convertAndSend(
+                "/queue/reservation/" + p.getOrderId() + "/user/reservation",
+                p
+        );
+
         return mapper.updOrderAccess(p);
     }
 
