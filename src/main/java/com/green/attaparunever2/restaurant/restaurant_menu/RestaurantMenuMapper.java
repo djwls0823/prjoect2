@@ -1,5 +1,6 @@
 package com.green.attaparunever2.restaurant.restaurant_menu;
 
+import com.green.attaparunever2.restaurant.restaurant_menu.model.DelMenuReq;
 import com.green.attaparunever2.restaurant.restaurant_menu.model.InsMenuReq;
 import com.green.attaparunever2.restaurant.restaurant_menu.model.SelMenuReq;
 import com.green.attaparunever2.restaurant.restaurant_menu.model.SelMenuRes;
@@ -11,4 +12,5 @@ import java.util.List;
 public interface RestaurantMenuMapper {
     int insMenu(InsMenuReq p);
     List<SelMenuRes> selMenu(SelMenuReq p);
+    int delMenu(DelMenuReq p);
 }
