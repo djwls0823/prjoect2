@@ -49,34 +49,12 @@ public class RestaurantMenuService {
     }
 
     @Transactional
-    public String updRestaurantMenu(MultipartFile pic, UpdMenuReq p) {
-        // 저장할 파일명 생성
-        String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : null);
-
-        // 폴더 만들기
-        String folderPath = String.format("menu/%d", p.getMenuId());
-        myFileUtils.makeFolders(folderPath);
-
-        // 기존 파일 삭제
-        String deletePath = String.format("%s/menu/%d", myFileUtils.getUploadPath(), p.getMenuId());
-        myFileUtils.deleteFolder(deletePath, false);
-
-        // DB에 튜플 수정
-        p.setPicName(savedPicName); // 파일 이름을 설정
+    public int updRestaurantMenu(UpdMenuReq p) {
         int result = restaurantMenuMapper.updMenu(p);
         if (result == 0) {
             throw new CustomException("메뉴 수정 실패", HttpStatus.BAD_REQUEST);
         }
-
-        // 파일 이동
-        String filePath = String.format("menu/%d/%s", p.getMenuId(), savedPicName);
-        try {
-            myFileUtils.transferTo(pic, filePath); // MultipartFile을 파일로 저장
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("파일 이동 실패");
-        }
-        return savedPicName;
+        return result;
     }
 
     public int postCategory(PostCategoryReq p) {
