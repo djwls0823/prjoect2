@@ -3,6 +3,7 @@ package com.green.attaparunever2.restaurant.restaurant_menu;
 import com.green.attaparunever2.common.model.ResultResponse;
 import com.green.attaparunever2.restaurant.restaurant_menu.model.*;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("restaurant/menu")
+@Tag(name = "식당 메뉴", description = "식당 메뉴 관리")
 public class RestaurantMenuController {
     private final RestaurantMenuService restaurantMenuService;
 
@@ -65,4 +67,39 @@ public class RestaurantMenuController {
                 .build();
     }
 
+    @PostMapping("/category")
+    @Operation(summary = "메뉴 카테고리 등록")
+    public ResultResponse<Integer> postCategory(@RequestBody PostCategoryReq p) {
+        int result = restaurantMenuService.postCategory(p);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode("200")
+                .resultMsg("메뉴 카테고리 등록 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @PatchMapping("/category")
+    @Operation(summary = "메뉴 카테고리 수정")
+    public ResultResponse<Integer> updateCategory(@RequestBody UpdCategoryReq p) {
+        int result = restaurantMenuService.updCategory(p);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode("200")
+                .resultMsg("메뉴 카테고리 수정 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @DeleteMapping("/category")
+    @Operation(summary = "메뉴 카테고리 삭제")
+    public ResultResponse<Integer> deleteCategory(@RequestBody DelCategoryReq p) {
+        int result = restaurantMenuService.delCategory(p);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode("200")
+                .resultMsg("메뉴 카테고리 삭제 완료")
+                .resultData(result)
+                .build();
+    }
 }

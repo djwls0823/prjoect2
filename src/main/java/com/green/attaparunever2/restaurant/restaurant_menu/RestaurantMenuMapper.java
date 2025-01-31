@@ -11,4 +11,7 @@ public interface RestaurantMenuMapper {
     List<SelMenuRes> selMenu(SelMenuReq p);
     int delMenu(DelMenuReq p);
     int updMenu(UpdMenuReq p);
+    int postCategory(PostCategoryReq p);
+    int updCategory(UpdCategoryReq p);
+    int delCategory(DelCategoryReq p);
 }

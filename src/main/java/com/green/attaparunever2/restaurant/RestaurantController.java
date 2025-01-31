@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("restaurant")
-@Tag(name = "식당")
+@Tag(name = "식당", description = "식당 관리")
 public class RestaurantController {
     private final RestaurantService restaurantService;
 
