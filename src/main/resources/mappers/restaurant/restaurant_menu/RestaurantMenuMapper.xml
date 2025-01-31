@@ -35,8 +35,7 @@
             <if test=" price != null and price != '' ">
                 , price = #{price}
             </if>
-            , details = #{details}
-            , menu_pic = #{picName}
+                , details = #{details}
             <if test=" categoryId != null and categoryId != '' ">
                 , category_id = #{categoryId}
             </if>

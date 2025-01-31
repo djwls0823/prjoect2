@@ -4,6 +4,8 @@ package com.green.attaparunever2.restaurant;
 import com.green.attaparunever2.common.MyFileUtils;
 import com.green.attaparunever2.common.excprion.CustomException;
 import com.green.attaparunever2.restaurant.model.*;
+import com.green.attaparunever2.restaurant.restaurant_pic.RestaurantPicMapper;
+import com.green.attaparunever2.restaurant.restaurant_pic.model.UpdRestaurantMenuPicReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -116,9 +118,9 @@ public class RestaurantService {
         return res;
     }
 
+    @Transactional
     public int patchRestaurant(UpdRestaurantReq req) {
         int result = restaurantMapper.updRestaurant(req);
-
         if (result == 0) {
             throw new CustomException("식당 수정에 실패했습니다.", HttpStatus.BAD_REQUEST);
         }
