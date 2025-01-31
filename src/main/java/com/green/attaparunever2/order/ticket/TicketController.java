@@ -23,7 +23,7 @@ public class TicketController {
     @Operation(summary = "식권 생성")
     public ResultResponse<Long> postTicket(@Valid @RequestBody TicketPostReq p
             , BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() || p.getExpiredDate().trim().isEmpty() || p.getQrCode().trim().isEmpty()) {
             return ResultResponse.<Long>builder()
                     .statusCode("400")
                     .resultMsg("식권 생성 실패")
@@ -31,12 +31,20 @@ public class TicketController {
                     .build();
         }
 
-        service.postTicket(p);
-        return ResultResponse.<Long>builder()
-                .statusCode("200")
-                .resultMsg("식권 생성 완료")
-                .resultData(1L)
-                .build();
+        try {
+            long ticketId = service.postTicket(p);
+            return ResultResponse.<Long>builder()
+                    .statusCode("200")
+                    .resultMsg("식권 생성 완료")
+                    .resultData(ticketId)
+                    .build();
+        } catch (RuntimeException e) {
+            return ResultResponse.<Long>builder()
+                    .statusCode("400")
+                    .resultMsg(e.getMessage())
+                    .resultData(0L)
+                    .build();
+        }
 
     }
 

@@ -8,22 +8,24 @@
         INSERT INTO `order`
         SET user_id = #{userId}
         , restaurant_id = #{restaurantId}
+        , reservation_yn = #{reservationYn}
         , reservation_status = #{reservationStatus}
     </insert>
 
     <insert id="postOrderDetail" useGeneratedKeys="true" keyProperty="orderDetailId">
         INSERT INTO order_detail
-        SET order_id = #{orderId}
-        , menu_id = #{menuId}
-        , menu_count = #{menuCount}
-        , price = #{price}
+        SET order_id = #{orderId},
+        menu_id = #{menuId},
+        menu_count = #{menuCount},
+        price = #{price}
     </insert>
 
     <select id="getOrder">
         SELECT
         A.order_id AS orderId,
         A.user_id AS userId,
-        A.reservation_status AS orderStatus,
+        A.reservation_yn AS reservationYn,
+        A.reservation_status AS reservationStatus,
         A.created_at AS orderDate,
         B.menu_id AS menuId,
         B.menu_count AS menuCount,
@@ -48,27 +50,24 @@
     </select>
 
     <update id="updOrderAccess">
+        <![CDATA[
         UPDATE `order`
-        SET reservation_status = #{reservationStatus}
-        WHERE order_id = #{orderId}
+        SET reservation_status = CASE
+            WHEN #{reservationStatus} = 3
+            AND TIMESTAMPDIFF(HOUR, (SELECT created_at FROM reservation WHERE order_id = #{orderId}),
+            NOW()) > 1 THEN reservation_status
+            ELSE #{reservationStatus}
+        END
+        WHERE order_id = #{orderId};
+    ]]>
     </update>
 
-    <select id="getPaymentRestaurant">
+    <select id="getOrderById">
         SELECT
-        A.restaurant_id AS restaurantId,
-        C.menu_id AS menuId,
-        C.menu_name AS menuName,
-        SUM(B.menu_count) AS totalCount,
-        SUM(B.menu_count * B.price) AS totalSales,
-        DATE(A.created_at) AS orderDate
-        FROM `order` A
-        LEFT JOIN order_detail B ON A.order_id = B.order_id
-        LEFT JOIN restaurant_menu C ON B.menu_id = C.menu_id
-        WHERE A.restaurant_id = #{restaurantId}
-        AND STR_TO_DATE(A.created_at, '%Y-%m-%d %H:%i:%s') BETWEEN '2025-01-22' AND '2025-01-30'
-        GROUP BY A.restaurant_id, C.menu_id, A.created_at
-        ORDER BY DATE(A.created_at) DESC
+        reservation_yn AS reservationYn,
+        reservation_status AS reservationStatus
+        FROM `order`
+        WHERE order_id = #{orderId};
     </select>
-
 
 </mapper>

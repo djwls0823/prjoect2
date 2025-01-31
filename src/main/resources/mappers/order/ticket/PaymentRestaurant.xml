@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.attaparunever2.order.ticket.PaymentRestaurantMapper">
+    <select id="getPaymentRestaurant">
+        SELECT
+        A.restaurant_id AS restaurantId,
+        A.reservation_yn AS reservationYn,
+        C.menu_id AS menuId,
+        C.menu_name AS menuName,
+        SUM(B.menu_count) AS totalCount,
+        SUM(B.menu_count * B.price) AS totalSales,
+        DATE(A.created_at) AS orderDate
+        FROM `order` A
+        LEFT JOIN order_detail B
+        ON A.order_id = B.order_id
+        LEFT JOIN restaurant_menu C
+        ON B.menu_id = C.menu_id
+        WHERE A.restaurant_id = #{restaurantId}
+        AND A.created_at BETWEEN #{startDate} AND #{endDate}
+        GROUP BY A.restaurant_id, C.menu_id
+        ORDER BY A.created_at DESC
+    </select>
+</mapper>

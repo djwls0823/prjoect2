@@ -1,5 +1,6 @@
 package com.green.attaparunever2.order.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -16,5 +17,8 @@ public class OrderAccessPatchReq {
     @NotNull
     @Positive
     @Schema(title = "예약 상태", requiredMode = Schema.RequiredMode.REQUIRED)
-    private int reservationStatus;
+    private int reservationStatus; //0:미승인, 1:승인, 2:거부, 3:취소
+
+    @JsonIgnore
+    private String createdAt;
 }
