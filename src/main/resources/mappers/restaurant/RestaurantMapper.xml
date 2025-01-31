@@ -100,9 +100,6 @@
                 <if test=" lng != null and lng != '' ">
                     , A.lng = #{lng}
                 </if>
-                <if test=" filePath != null and filePath != '' ">
-                    , B.file_path = #{filePath}
-                </if>
             </set>
          WHERE A.restaurant_id = #{restaurantId}
     </update>
