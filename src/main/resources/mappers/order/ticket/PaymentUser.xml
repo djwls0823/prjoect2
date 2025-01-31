@@ -7,6 +7,7 @@
         SELECT A.user_id AS userId
         , A.point
         , B.order_id AS orderId
+        , B.reservation_yn AS reservationYn
         , B.reservation_status AS reservationStatus
         , C.created_at AS paymentDate
         , C.ticket_id AS ticketId
@@ -27,5 +28,11 @@
         WHERE A.user_id = #{userId}
         GROUP BY A.user_id
         order BY C.created_at DESC
+    </select>
+
+    <select id="getPoint">
+        SELECT point
+        FROM user_payment_member
+        WHERE order_id = #{orderId}
     </select>
 </mapper>

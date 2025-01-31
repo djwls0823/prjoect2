@@ -10,4 +10,5 @@ import java.util.List;
 @Mapper
 public interface PaymentUserMapper {
     List<PaymentUserDto> getPaymentUser(PaymentUserGetReq p);
+    PaymentUserDto getPoint(long orderId);
 }

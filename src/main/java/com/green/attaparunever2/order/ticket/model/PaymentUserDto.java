@@ -18,6 +18,9 @@ public class PaymentUserDto {
     @Schema(title = "주문 ID")
     private long orderId;
 
+    @Schema(title = "예약 여부")
+    private int reservationYn;
+
     @Schema(title = "예약 상태")
     private int reservationStatus;
 
