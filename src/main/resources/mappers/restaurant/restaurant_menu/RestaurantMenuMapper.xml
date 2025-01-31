@@ -25,4 +25,26 @@
         DELETE FROM restaurant_menu
         WHERE menu_id = #{menuId};
     </delete>
+
+    <update id="updMenu">
+        UPDATE restaurant_menu
+        <set>
+            <if test=" menuName != null and menuName != '' ">
+                menu_name = #{menuName}
+            </if>
+            <if test=" price != null and price != '' ">
+                , price = #{price}
+            </if>
+            , details = #{details}
+            , menu_pic = #{picName}
+            <if test=" categoryId != null and categoryId != '' ">
+                , category_id = #{categoryId}
+            </if>
+            <if test=" available != null and available != '' ">
+                , available = #{available}
+            </if>
+        </set>
+        WHERE menu_id = #{menuId}
+    </update>
+
 </mapper>

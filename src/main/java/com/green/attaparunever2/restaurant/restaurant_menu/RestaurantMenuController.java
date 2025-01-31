@@ -1,10 +1,7 @@
 package com.green.attaparunever2.restaurant.restaurant_menu;
 
 import com.green.attaparunever2.common.model.ResultResponse;
-import com.green.attaparunever2.restaurant.restaurant_menu.model.DelMenuReq;
-import com.green.attaparunever2.restaurant.restaurant_menu.model.InsMenuReq;
-import com.green.attaparunever2.restaurant.restaurant_menu.model.SelMenuReq;
-import com.green.attaparunever2.restaurant.restaurant_menu.model.SelMenuRes;
+import com.green.attaparunever2.restaurant.restaurant_menu.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -52,6 +49,18 @@ public class RestaurantMenuController {
         return ResultResponse.<Integer>builder()
                 .statusCode("200")
                 .resultMsg("메뉴 삭제 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @PatchMapping
+    @Operation(summary = "메뉴 정보 수정")
+    public ResultResponse<String> updateMenu(@RequestPart MultipartFile pic, @RequestPart UpdMenuReq p){
+        String result = restaurantMenuService.updRestaurantMenu(pic, p);
+
+        return ResultResponse.<String>builder()
+                .statusCode("200")
+                .resultMsg("메뉴 수정 완료")
                 .resultData(result)
                 .build();
     }

@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Schema(title = "식당 정보 수정")
@@ -29,5 +31,5 @@ public class UpdRestaurantReq {
     @Schema(title = "경도")
     private double lng;
     @Schema(title = "식당 사진")
-    private String filePath;
+    private List<String> filePath;
 }
