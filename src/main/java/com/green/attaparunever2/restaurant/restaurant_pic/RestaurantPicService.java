@@ -80,7 +80,6 @@ public class RestaurantPicService {
 
         // DB에 모든 사진 정보 업데이트
         p.setPicName(savedPicNames); // 저장된 파일 이름을 요청 객체에 설정
-        p.setPicId(p.getPicId());
         int result = restaurantPicMapper.updRestaurantPic(p);
         if (result == 0) {
             throw new CustomException("식당 사진 수정 실패", HttpStatus.BAD_REQUEST);
