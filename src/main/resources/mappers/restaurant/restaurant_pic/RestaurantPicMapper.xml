@@ -17,4 +17,16 @@
            SET menu_pic = #{picName}
          WHERE menu_id = #{menuId}
     </update>
+
+    <update id="updRestaurantPic">
+        UPDATE restaurant_pic
+        SET file_path =
+        <foreach collection="picName" item="pic" separator=",">
+            <if test="pic != null">
+                #{pic}
+            </if>
+        </foreach>
+        WHERE restaurant_id = #{restaurantId}
+          AND pic_id = #{picId}
+    </update>
 </mapper>
