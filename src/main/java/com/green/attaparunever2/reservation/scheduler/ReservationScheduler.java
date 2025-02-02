@@ -1,13 +1,10 @@
 package com.green.attaparunever2.reservation.scheduler;
 
-import com.green.attaparunever2.config.StompSessionManager;
 import com.green.attaparunever2.order.OrderMapper;
 import com.green.attaparunever2.order.model.OrderAccessPatchReq;
 import com.green.attaparunever2.reservation.ReservationMapper;
 import com.green.attaparunever2.reservation.model.ReservationDto;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.stomp.StompCommand;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.DelayQueue;
@@ -19,16 +16,13 @@ public class ReservationScheduler {
     private final ReservationMapper reservationMapper;
     private final OrderMapper orderMapper;
     private final SimpMessagingTemplate messagingTemplate;
-    private final StompSessionManager stompSessionManager;
 
     public ReservationScheduler(ReservationMapper reservationMapper
             , OrderMapper orderMapper
-            , SimpMessagingTemplate messagingTemplate
-            , StompSessionManager stompSessionManager) {
+            , SimpMessagingTemplate messagingTemplate) {
         this.reservationMapper = reservationMapper;
         this.orderMapper = orderMapper;
         this.messagingTemplate = messagingTemplate;
-        this.stompSessionManager = stompSessionManager;
         startProcessing(); // 큐를 처리하는 쓰레드 실행
     }
 
