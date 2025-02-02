@@ -3,10 +3,61 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.attaparunever2.reservation.ReservationMapper">
-    <insert id="postReservation">
+    <insert id="postReservation" useGeneratedKeys="true" keyProperty="reservationId">
         INSERT INTO reservation
             (order_id, reservation_people_count, user_phone, reservation_time)
         SELECT #{orderId}, #{reservationPeopleCount}, #{userPhone}, #{reservationTime}
          WHERE ABS(TIMESTAMPDIFF(SECOND, NOW(), #{reservationTime})) >= 3600
     </insert>
+
+    <select id="selActiveReservationByUserId">
+        SELECT A.reservation_id AS reservationId, B.order_id AS orderId
+        , C.restaurant_id AS restaurantId, C.restaurant_name AS restaurantName
+        , D.user_id AS userId, D.name AS userName, B.reservation_yn AS reservationYn
+        , B.reservation_status AS reservationStatus, A.reservation_time AS reservationTime
+        , A.reservation_people_count AS reservationPeopleCount, A.reservation_cancel_reason AS reservationCancelReason, A.user_phone AS userPhone, A.created_at AS createdAt
+        , A.updated_at AS updatedAt
+        FROM reservation A INNER JOIN `order` B
+        ON A.order_id = B.order_id
+        INNER JOIN restaurant C
+        ON B.restaurant_id = C.restaurant_id
+        INNER JOIN user D
+        ON B.user_id = D.user_id
+        WHERE B.user_id = #{userId}
+        AND B.reservation_status = 0
+        ORDER BY B.order_id DESC
+        LIMIT 1
+    </select>
+
+    <select id="selReservationByReservationId">
+        SELECT A.reservation_id AS reservationId, B.order_id AS orderId
+        , C.restaurant_id AS restaurantId, C.restaurant_name AS restaurantName
+        , D.user_id AS userId, D.name AS userName, B.reservation_yn AS reservationYn
+        , B.reservation_status AS reservationStatus, A.reservation_time AS reservationTime
+        , A.reservation_people_count AS reservationPeopleCount, A.reservation_cancel_reason AS reservationCancelReason, A.user_phone AS userPhone, A.created_at AS createdAt
+        , A.updated_at AS updatedAt
+        FROM reservation A INNER JOIN `order` B
+        ON A.order_id = B.order_id
+        INNER JOIN restaurant C
+        ON B.restaurant_id = C.restaurant_id
+        INNER JOIN user D
+        ON B.user_id = D.user_id
+        WHERE A.reservation_id = #{reservationId}
+    </select>
+
+    <select id="selReservationByOrderId">
+        SELECT A.reservation_id AS reservationId, B.order_id AS orderId
+        , C.restaurant_id AS restaurantId, C.restaurant_name AS restaurantName
+        , D.user_id AS userId, D.name AS userName, B.reservation_yn AS reservationYn
+        , B.reservation_status AS reservationStatus, A.reservation_time AS reservationTime
+        , A.reservation_people_count AS reservationPeopleCount, A.reservation_cancel_reason AS reservationCancelReason, A.user_phone AS userPhone, A.created_at AS createdAt
+        , A.updated_at AS updatedAt
+        FROM reservation A INNER JOIN `order` B
+        ON A.order_id = B.order_id
+        INNER JOIN restaurant C
+        ON B.restaurant_id = C.restaurant_id
+        INNER JOIN user D
+        ON B.user_id = D.user_id
+        WHERE B.order_id = #{orderId}
+    </select>
 </mapper>
