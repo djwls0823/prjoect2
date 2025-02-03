@@ -64,7 +64,7 @@ public class RestaurantService {
     }
 
     public SelRestaurantRes getRestaurant(SelRestaurantReq p){
-        SelRestaurantRes res = restaurantMapper.selRestaurantOne(p);
+        SelRestaurantRes res = restaurantMapper.selRestaurant(p);
         return res;
     }
 
