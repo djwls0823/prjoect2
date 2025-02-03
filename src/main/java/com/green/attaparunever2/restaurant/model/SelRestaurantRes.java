@@ -17,6 +17,8 @@ public class SelRestaurantRes {
     private long adminId;
     @Schema(title = "카테고리 PK")
     private long categoryId;
+    @Schema(title = "식당 PK")
+    private long restaurantId;
     @Schema(title = "식당 이름")
     private String restaurantName;
     @Schema(title = "식당 주소")

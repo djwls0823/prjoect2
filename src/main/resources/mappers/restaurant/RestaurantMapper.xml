@@ -19,7 +19,7 @@
     </insert>
 
     <select id="selRestaurant">
-        SELECT admin_id AS adminId, category_id AS categoryId, restaurant_name AS restaurantName
+        SELECT admin_id AS adminId, category_id AS categoryId, restaurant_id AS restaurantId, restaurant_name AS restaurantName
              , restaurant_address AS restaurantAddress, restaurant_number AS restaurantNumber
              , business_number AS businessNumber, operating_hours AS operatingHours
              , restaurant_description AS restaurantDescription, `status`
