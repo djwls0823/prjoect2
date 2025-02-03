@@ -33,7 +33,7 @@ public class RestaurantController {
     }
 
     @GetMapping
-    @Operation(summary = "식당 보기")
+    @Operation(summary = "식당 상세 정보 보기")
     public ResultResponse<SelRestaurantRes> getRestaurant(@ParameterObject @ModelAttribute SelRestaurantReq p){
         SelRestaurantRes res = restaurantService.getRestaurant(p);
 
@@ -101,6 +101,18 @@ public class RestaurantController {
                 .statusCode("200")
                 .resultMsg("휴무일 변경 완료")
                 .resultData(result)
+                .build();
+    }
+
+    @GetMapping("main")
+    @Operation(summary = "메인 화면 식당 조회")
+    public ResultResponse<List<SelRestaurantMainRes>> getRestaurantMain(@ParameterObject @ModelAttribute SelRestaurantMainReq p){
+        List<SelRestaurantMainRes> res = restaurantService.getRestaurantMain(p);
+
+        return ResultResponse.<List<SelRestaurantMainRes>>builder()
+                .statusCode("200")
+                .resultMsg("메인 화면 식당 정보 조회 완료")
+                .resultData(res)
                 .build();
     }
 }
