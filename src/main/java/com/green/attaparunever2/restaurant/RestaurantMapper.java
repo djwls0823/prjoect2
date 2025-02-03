@@ -15,4 +15,5 @@ public interface RestaurantMapper {
     List<SelHolidayRes> selHolidays(SelHolidayReq p);
     int updRestaurant(UpdRestaurantReq p);
     int updHoliday(UpdHolidayReq p);
+    List<SelRestaurantMainRes> selRestaurantMain(SelRestaurantMainReq p);
 }
