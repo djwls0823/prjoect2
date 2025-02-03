@@ -4,7 +4,6 @@ import com.green.attaparunever2.order.model.*;
 import com.green.attaparunever2.order.ticket.TicketMapper;
 import com.green.attaparunever2.order.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.jdbc.DataSourceUnwrapper;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 

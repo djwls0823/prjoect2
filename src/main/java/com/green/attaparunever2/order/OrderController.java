@@ -32,11 +32,11 @@ public class OrderController {
                     .build();
         }
 
-        service.postOrder(p);
+        long result = service.postOrder(p);
         return ResultResponse.<Long>builder()
                 .statusCode("200")
                 .resultMsg("주문 등록 완료")
-                .resultData(1L)
+                .resultData(result)
                 .build();
     }
 
