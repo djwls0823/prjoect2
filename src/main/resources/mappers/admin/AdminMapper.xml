@@ -43,7 +43,7 @@
     <select id="selAdminByAid">
         SELECT admin_id AS adminId, role_id AS roleId, aid, apw, name, email, phone
         FROM admin
-        WHERE aid = #{aid}
+        WHERE aid = #{id}
     </select>
 
     <select id="selAdminByAdminId">
