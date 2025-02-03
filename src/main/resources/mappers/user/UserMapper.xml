@@ -53,7 +53,7 @@
         , A.email, A.phone, A.point
         FROM user A INNER JOIN company B
         ON A.company_id = B.company_id
-        WHERE A.uid = #{uid}
+        WHERE A.uid = #{id}
     </select>
 
     <select id="selUserByUserId">

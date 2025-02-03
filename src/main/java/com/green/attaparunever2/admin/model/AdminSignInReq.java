@@ -11,7 +11,7 @@ import lombok.ToString;
 @Schema(description = "회원 로그인 정보")
 public class AdminSignInReq {
     @Schema(description = "아이디", example = "10000001", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String aid;
+    private String id;
     @Schema(description = "비밀번호", example = "qwer12#$", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String apw;
+    private String pw;
 }
