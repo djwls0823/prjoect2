@@ -41,7 +41,7 @@ public class UserService {
         // 회원 생성
         int result =  userMapper.insUser(req);
 
-        if(result != 0) {
+        /*if(result != 0) {
             // 인증번호 생성
             String authKey = mailSendService.generateAuthCode(10);
 
@@ -58,7 +58,7 @@ public class UserService {
 
             // 인증번호 이메일 전송
             mailSendService.sendAuthMail("/user/auth-token?userId=", req.getEmail(), req.getUserId(), userMailVerificationDTO.getToken());
-        }
+        }*/
 
         return result;
     }
@@ -111,13 +111,13 @@ public class UserService {
     // 로그인
     @Transactional
     public UserSignInRes signIn(UserSignInReq p) {
-        UserSignInRes res = userMapper.selUserByUid(p.getUid());
+        UserSignInRes res = userMapper.selUserByUid(p.getId());
 
-        if(res == null || !BCrypt.checkpw(p.getUpw(),res.getUpw())) {
+        if(res == null || !BCrypt.checkpw(p.getPw(),res.getUpw())) {
             throw new CustomException("아이디 혹은 비밀번호를 확인해 주세요.", HttpStatus.BAD_REQUEST);
         } else {
             // 인증 여부 검사
-            UserMailVerificationDTO userMailVerificationDTO = userMapper.selUserEmailVerificationByUserId(res.getUserId());
+            /*UserMailVerificationDTO userMailVerificationDTO = userMapper.selUserEmailVerificationByUserId(res.getUserId());
             LocalDateTime now = LocalDateTime.now();
 
             if(userMailVerificationDTO != null) {
@@ -128,7 +128,7 @@ public class UserService {
                 }
 
                 throw new CustomException(msg, HttpStatus.BAD_REQUEST);
-            }
+            }*/
         }
 
         return res;

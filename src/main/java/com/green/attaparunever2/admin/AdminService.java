@@ -27,7 +27,7 @@ public class AdminService {
     @Transactional
     public int adminSignUp(AdminSignUpReq req){
         // 인증정보 조회(만약 인증이 만료된 아이디로 가입하려는 경우 인증 정보를 지우고 유저 정보도 지워야 함)
-        AdminMailVerificationDTO adminMailVerificationDTO = adminMapper.selAdminEmailVerificationByAId(req.getAid());
+        /*AdminMailVerificationDTO adminMailVerificationDTO = adminMapper.selAdminEmailVerificationByAId(req.getAid());
 
         if(adminMailVerificationDTO != null) {
             LocalDateTime now = LocalDateTime.now();
@@ -37,14 +37,14 @@ public class AdminService {
                 adminMapper.delAdminEmailVerification(adminMailVerificationDTO.getAdminId());
                 adminMapper.delAdmin(adminMailVerificationDTO.getAdminId());
             }
-        }
+        }*/
 
         // 비밀번호 암호화
         req.setApw(BCrypt.hashpw(req.getApw(), BCrypt.gensalt()));
         
         int result = adminMapper.insAdmin(req);
 
-        if(result != 0) {
+        /*if(result != 0) {
             // 인증번호 생성
             String authKey = mailSendService.generateAuthCode(10);
 
@@ -61,7 +61,7 @@ public class AdminService {
 
             // 인증번호 이메일 전송
             mailSendService.sendAuthMail("/admin/auth-token?adminId=", req.getEmail(), req.getAdminId(), adminMailVerificationDTO.getToken());
-        }
+        }*/
         
         return result;
     }
@@ -114,12 +114,12 @@ public class AdminService {
     // 로그인
     @Transactional
     public AdminSignInRes signIn(AdminSignInReq p) {
-        AdminSignInRes res = adminMapper.selAdminByAid(p.getAid());
+        AdminSignInRes res = adminMapper.selAdminByAid(p.getId());
 
-        if(res == null || !BCrypt.checkpw(p.getApw(),res.getApw())) {
+        if(res == null || !BCrypt.checkpw(p.getPw(),res.getApw())) {
             throw new CustomException("아이디 혹은 비밀번호를 확인해 주세요.", HttpStatus.BAD_REQUEST);
         } else {
-            // 인증 여부 검사
+            /*// 인증 여부 검사
             AdminMailVerificationDTO adminMailVerificationDTO = adminMapper.selAdminEmailVerificationByAdminId(res.getAdminId());
             LocalDateTime now = LocalDateTime.now();
 
@@ -131,7 +131,7 @@ public class AdminService {
                 }
 
                 throw new CustomException(msg, HttpStatus.BAD_REQUEST);
-            }
+            }*/
         }
 
         return res;
