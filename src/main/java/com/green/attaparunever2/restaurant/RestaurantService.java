@@ -4,6 +4,9 @@ package com.green.attaparunever2.restaurant;
 import com.green.attaparunever2.common.MyFileUtils;
 import com.green.attaparunever2.common.excprion.CustomException;
 import com.green.attaparunever2.restaurant.model.*;
+import com.green.attaparunever2.restaurant.restaurant_menu.RestaurantMenuMapper;
+import com.green.attaparunever2.restaurant.restaurant_menu.model.MenuSelCateList;
+import com.green.attaparunever2.restaurant.restaurant_menu.model.MenuSelList;
 import com.green.attaparunever2.restaurant.restaurant_pic.RestaurantPicMapper;
 import com.green.attaparunever2.restaurant.restaurant_pic.model.RestaurantPicAroundSel;
 import com.green.attaparunever2.restaurant.restaurant_pic.model.RestaurantPicSel;
@@ -25,6 +28,7 @@ import java.util.List;
 public class RestaurantService {
     private final RestaurantMapper restaurantMapper;
     private final RestaurantPicMapper restaurantPicMapper;
+    private final RestaurantMenuMapper restaurantMenuMapper;
     private final MyFileUtils myFileUtils;
 
     @Transactional
@@ -66,9 +70,22 @@ public class RestaurantService {
     }
 
     public SelRestaurantRes getRestaurant(SelRestaurantReq p){
+        // 식당 정보 불러오기
         SelRestaurantRes res = restaurantMapper.selRestaurant(p);
+        // 식당 사진 불러오기
         List<RestaurantPicSel> restaurantPicSelList = restaurantPicMapper.selRestaurantPic(p.getRestaurantId());
         res.setRestaurantPics(restaurantPicSelList);
+        // 식당 메뉴 카테고리 불러오기
+        List<MenuSelCateList> menuSelCateList = restaurantMenuMapper.selMenuCategoryList(p.getRestaurantId());
+        res.setMenuCateList(menuSelCateList);
+        // 식당 메뉴 불러오기
+        for (MenuSelCateList category : menuSelCateList) {
+            // 4.1 각 카테고리 ID를 사용하여 해당 카테고리의 메뉴를 조회
+            List<MenuSelList> menuList = restaurantMenuMapper.selMenuList(category.getCategoryId());
+
+            // 4.2 카테고리 객체에 메뉴 리스트 설정
+            category.setMenuList(menuList);
+        }
         return res;
     }
 
