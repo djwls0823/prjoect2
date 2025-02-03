@@ -17,9 +17,9 @@ public class ReservationController {
 
     @PostMapping
     @Operation(summary = "예약 요청")
-    public ResultResponse<Long> postReservation(@RequestBody ReservationPostReq req) {
-        long result = reservationService.postReservation(req);
-        return ResultResponse.<Long>builder()
+    public ResultResponse<Integer> postReservation(@RequestBody ReservationPostReq req) {
+        int result = reservationService.postReservation(req);
+        return ResultResponse.<Integer>builder()
                              .statusCode("200")
                              .resultMsg("예약 요청 완료")
                              .resultData(result)
