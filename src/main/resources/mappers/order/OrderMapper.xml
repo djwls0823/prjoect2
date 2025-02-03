@@ -17,7 +17,7 @@
         SET order_id = #{orderId},
         menu_id = #{menuId},
         menu_count = #{menuCount},
-        price = #{price}
+        price = (SELECT price FROM restaurant_menu WHERE menu_id = #{menuId})
     </insert>
 
     <select id="getOrder">
