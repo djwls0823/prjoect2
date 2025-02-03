@@ -85,4 +85,14 @@ public class MyFileUtils {
             }
         }
     }
+
+    // 파일 삭제
+    public void deleteFile(String path) throws IOException {
+        File file = new File(path);
+        if (file.exists()) {
+            if (!file.delete()) {
+                throw new IOException("파일 삭제에 실패했습니다.");
+            }
+        }
+    }
 }
