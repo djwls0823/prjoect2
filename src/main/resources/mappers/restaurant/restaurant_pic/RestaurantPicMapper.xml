@@ -18,15 +18,18 @@
          WHERE menu_id = #{menuId}
     </update>
 
-    <update id="updRestaurantPic">
-        UPDATE restaurant_pic
-        SET file_path =
-        <foreach collection="picName" item="pic" separator=",">
-            <if test="pic != null">
-                #{pic}
-            </if>
+    <delete id="deleteRestaurantPics">
+        DELETE FROM restaurant_pic
+        WHERE pic_id IN
+        <foreach item="picId" collection="picId" open="(" separator="," close=")">
+            #{picId}
         </foreach>
-        WHERE restaurant_id = #{restaurantId}
-          AND pic_id = #{picId}
-    </update>
+        AND restaurant_id = #{restaurantId}
+    </delete>
+
+    <select id="getFilePathByPicId" resultType="String">
+        SELECT file_path
+        FROM restaurant_pic
+        WHERE pic_id = #{picId}
+    </select>
 </mapper>

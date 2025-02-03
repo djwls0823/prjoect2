@@ -1,10 +1,9 @@
 package com.green.attaparunever2.restaurant.restaurant_pic;
 
 import com.green.attaparunever2.common.model.ResultResponse;
-import com.green.attaparunever2.restaurant.model.InsRestaurantRes;
 import com.green.attaparunever2.restaurant.restaurant_pic.model.UpdRestaurantMenuPicReq;
-import com.green.attaparunever2.restaurant.restaurant_pic.model.UpdRestaurantPicReq;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +30,17 @@ public class RestaurantPicController {
                 .build();
     }
 
-    @PatchMapping("/restaurant")
-    @Operation(summary = "식당 사진 수정")
-    public ResultResponse<List<String>> updRestaurantPic(@RequestPart List<MultipartFile> pics, @RequestPart UpdRestaurantPicReq p) {
-        List<String> result = restaurantPicService.updRestaurantPic(pics, p);
-
-        return ResultResponse.<List<String>>builder()
+    @DeleteMapping("/restaurant")
+    @Operation(summary = "식당 사진 삭제")
+    public ResultResponse<Integer> delRestaurantPic(
+            @Parameter(description = "식당 사진 ID", example = "[1, 2, 3]", required = true)
+            @RequestParam List<Long> picId,
+            @RequestParam long restaurantId) {
+        // service 호출 및 응답 처리
+        int result = restaurantPicService.delRestaurantPic(restaurantId, picId);
+        return ResultResponse.<Integer>builder()
                 .statusCode("200")
-                .resultMsg("식당 사진 수정 성공")
+                .resultMsg("식당 사진 삭제 성공")
                 .resultData(result)
                 .build();
     }
