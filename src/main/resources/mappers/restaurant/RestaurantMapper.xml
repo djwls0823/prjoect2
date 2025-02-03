@@ -23,7 +23,7 @@
              , restaurant_address AS restaurantAddress, restaurant_number AS restaurantNumber
              , business_number AS businessNumber, operating_hours AS operatingHours
              , restaurant_description AS restaurantDescription, `status`
-             , max_capacity AS maxCapacity, lat, lng, created_at AS createdAt
+             , max_capacity AS maxCapacity, created_at AS createdAt
           FROM restaurant
          WHERE restaurant_id = #{restaurantId};
     </select>
@@ -32,6 +32,7 @@
         SELECT F.restaurant_name AS restaurantName
              , F.restaurant_address AS restaurantAddress
              , F.restaurant_id AS restaurantId
+             , F.lat, F.lng
              , (6371 * ACOS(COS(RADIANS(40)) * COS(RADIANS(F.lat)) * COS(RADIANS(F.lng) - RADIANS(127)) + SIN(RADIANS(40)) * SIN(RADIANS(F.lat)))) AS DISTANCE,
         IFNULL((
             SELECT AVG(ABS(TIMESTAMPDIFF(MINUTE, B.reservation_time, C.use_date)))

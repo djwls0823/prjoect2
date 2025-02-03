@@ -20,6 +20,10 @@ public class SelRestaurantAroundRes {
     private String restaurantAddress;
     @Schema(title = "식당 평균 식사 시간")
     private double avgRestaurant;
+    @Schema(title = "위도")
+    private double lat;
+    @Schema(title = "경도")
+    private double lng;
     @Schema(title = "식당 사진 리스트")
     private List<RestaurantPicAroundSel> restaurantArroundPicList;
 }
