@@ -32,4 +32,16 @@
         FROM restaurant_pic
         WHERE pic_id = #{picId}
     </select>
+
+    <select id="selRestaurantPic">
+        SELECT restaurant_id AS restaurantId, file_path AS filePath
+        FROM restaurant_pic
+        WHERE restaurant_id = #{restaurantId}
+    </select>
+
+    <select id="selRestaurantAroundPic">
+        SELECT restaurant_id AS restaurantId, file_path AS filePath
+        FROM restaurant_pic
+        WHERE restaurant_id = #{restaurantId}
+    </select>
 </mapper>

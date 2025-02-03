@@ -5,6 +5,8 @@ import com.green.attaparunever2.common.MyFileUtils;
 import com.green.attaparunever2.common.excprion.CustomException;
 import com.green.attaparunever2.restaurant.model.*;
 import com.green.attaparunever2.restaurant.restaurant_pic.RestaurantPicMapper;
+import com.green.attaparunever2.restaurant.restaurant_pic.model.RestaurantPicAroundSel;
+import com.green.attaparunever2.restaurant.restaurant_pic.model.RestaurantPicSel;
 import com.green.attaparunever2.restaurant.restaurant_pic.model.UpdRestaurantMenuPicReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +67,8 @@ public class RestaurantService {
 
     public SelRestaurantRes getRestaurant(SelRestaurantReq p){
         SelRestaurantRes res = restaurantMapper.selRestaurant(p);
+        List<RestaurantPicSel> restaurantPicSelList = restaurantPicMapper.selRestaurantPic(p.getRestaurantId());
+        res.setRestaurantPics(restaurantPicSelList);
         return res;
     }
 
@@ -99,10 +103,19 @@ public class RestaurantService {
 
         log.info("오더 필터 : {} 검색 필터 {}", p.getOrderFilter(), p.getSearchFilter());
 
-        List<SelRestaurantAroundRes> res = restaurantMapper.selRestaurantAround(p);
+        List<SelRestaurantAroundRes> list = restaurantMapper.selRestaurantAround(p);
+        for (SelRestaurantAroundRes res : list) {
+            // 각 식당에 대해 사진 리스트를 가져오기
+            List<RestaurantPicAroundSel> picList = restaurantPicMapper.selRestaurantAroundPic(res.getRestaurantId());
 
-        return res;
+            // 사진 리스트를 해당 식당 객체에 설정
+            res.setRestaurantArroundPicList(picList);
 
+            log.info("qwer : {} pic : {}", res.getRestaurantId(), res.getRestaurantArroundPicList());
+        }
+
+        // 3. 최종적으로 수정된 식당 목록 반환
+        return list;
     }
 
 

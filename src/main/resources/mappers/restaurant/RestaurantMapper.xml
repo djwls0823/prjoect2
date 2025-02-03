@@ -31,6 +31,7 @@
     <select id="selRestaurantAround">
         SELECT F.restaurant_name AS restaurantName
              , F.restaurant_address AS restaurantAddress
+             , F.restaurant_id AS restaurantId
              , (6371 * ACOS(COS(RADIANS(40)) * COS(RADIANS(F.lat)) * COS(RADIANS(F.lng) - RADIANS(127)) + SIN(RADIANS(40)) * SIN(RADIANS(F.lat)))) AS DISTANCE,
         IFNULL((
             SELECT AVG(ABS(TIMESTAMPDIFF(MINUTE, B.reservation_time, C.use_date)))
