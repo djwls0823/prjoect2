@@ -9,4 +9,5 @@ public interface OrderMapper {
     int postOrderDetail(OrderDetailPostReq p);
     int updOrderAccess(OrderAccessPatchReq p);
     OrderDto getOrder(OrderGetReq p);
+
 }

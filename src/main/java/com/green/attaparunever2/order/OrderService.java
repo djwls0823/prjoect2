@@ -15,17 +15,15 @@ public class OrderService {
     private final TicketService ticketService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    public long postOrder(OrderPostReq p) {
-        mapper.postOrder(p);
-        return p.getOrderId();
+    public int postOrder(OrderPostReq p) {
+        return mapper.postOrder(p);
     }
 
-    public long postOrderDetail(OrderDetailPostReq p) {
-        mapper.postOrderDetail(p);
-        return p.getOrderDetailId();
+    public int postOrderDetail(OrderDetailPostReq p) {
+        return mapper.postOrderDetail(p);
     }
 
-    public long updOrderAccess(OrderAccessPatchReq p) {
+    public int updOrderAccess(OrderAccessPatchReq p) {
         // 사용자에게 예약결과 알림 설정
         messagingTemplate.convertAndSend(
                 "/queue/reservation/" + p.getOrderId() + "/user/reservation",

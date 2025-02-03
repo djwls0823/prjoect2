@@ -24,7 +24,7 @@
         INNER JOIN user D
         ON B.user_id = D.user_id
         WHERE B.user_id = #{userId}
-        AND B.reservation_status = 0
+        AND (B.reservation_status = 0 OR B.reservation_status = 1)
         ORDER BY B.order_id DESC
         LIMIT 1
     </select>

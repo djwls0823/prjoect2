@@ -52,5 +52,11 @@
         AND A.order_id = #{orderId}
     </delete>
 
+    <select id="selTicketByOrderId">
+        SELECT ticket_id AS ticketId, order_id AS orderId, expired_date AS expiredDate
+        , ticket_status AS ticketStatus, use_date AS useDate, created_at AS createdAt
+        FROM ticket
+        WHERE order_id = #{orderId}
+    </select>
 
 </mapper>
