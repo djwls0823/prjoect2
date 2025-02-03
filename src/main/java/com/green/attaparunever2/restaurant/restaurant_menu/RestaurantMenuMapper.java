@@ -14,4 +14,6 @@ public interface RestaurantMenuMapper {
     int postCategory(PostCategoryReq p);
     int updCategory(UpdCategoryReq p);
     int delCategory(DelCategoryReq p);
+    List<MenuSelCateList> selMenuCategoryList(long restaurantId);
+    List<MenuSelList> selMenuList(long categoryId);
 }

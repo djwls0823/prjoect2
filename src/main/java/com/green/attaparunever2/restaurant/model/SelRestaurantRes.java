@@ -1,6 +1,8 @@
 package com.green.attaparunever2.restaurant.model;
 
 
+import com.green.attaparunever2.restaurant.restaurant_menu.model.MenuSelCateList;
+import com.green.attaparunever2.restaurant.restaurant_menu.model.MenuSelList;
 import com.green.attaparunever2.restaurant.restaurant_pic.model.RestaurantPicSel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -39,4 +41,6 @@ public class SelRestaurantRes {
     private String createdAt;
     @Schema(title = "식당 사진 리스트")
     private List<RestaurantPicSel> restaurantPics;
+    @Schema(title = "메뉴 카테고리 리스트")
+    private List<MenuSelCateList> menuCateList;
 }
