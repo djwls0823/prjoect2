@@ -15,4 +15,6 @@ public class SelMenuRes {
     private String details;
     @Schema(title = "주문 가능 상태")
     private int available;
+    @Schema(title = "메뉴 사진")
+    private String menuPic;
 }

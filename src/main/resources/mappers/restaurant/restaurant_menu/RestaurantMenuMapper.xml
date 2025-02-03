@@ -15,8 +15,8 @@
         , available = #{available}
     </insert>
 
-    <select id="selMenu">
-        SELECT menu_name AS menuName, price, details, available
+    <select id="selMenuList">
+        SELECT menu_name AS menuName, price, details, available, menu_pic AS menuPic, menu_id AS menuId
         FROM restaurant_menu
         WHERE category_id = #{categoryId};
     </select>
@@ -66,5 +66,11 @@
         DELETE FROM restaurant_menu_category
          WHERE category_id = #{categoryId}
     </delete>
+
+    <select id="selMenuCategoryList">
+        SELECT category_id AS categoryId, category_name AS categoryName
+        FROM restaurant_menu_category
+        WHERE restaurant_id = #{restaurantId}
+    </select>
 
 </mapper>
