@@ -73,8 +73,8 @@ public class RestaurantService {
         // 식당 정보 불러오기
         SelRestaurantRes res = restaurantMapper.selRestaurant(p);
         // 식당 사진 불러오기
-        List<RestaurantPicSel> restaurantPicSelList = restaurantPicMapper.selRestaurantPic(p.getRestaurantId());
-        res.setRestaurantPics(restaurantPicSelList);
+        RestaurantPicSel restaurantPicSel = restaurantPicMapper.selRestaurantPic(p.getRestaurantId());
+        res.setRestaurantPics(restaurantPicSel);
         // 식당 메뉴 카테고리 불러오기
         List<MenuSelCateList> menuSelCateList = restaurantMenuMapper.selMenuCategoryList(p.getRestaurantId());
         res.setMenuCateList(menuSelCateList);
@@ -164,5 +164,16 @@ public class RestaurantService {
             throw new CustomException("휴무일 수정에 실패했습니다.", HttpStatus.BAD_REQUEST);
         }
         return result;
+    }
+
+    public List<SelRestaurantMainRes> getRestaurantMain(SelRestaurantMainReq p){
+        // 식당 정보 불러오기
+        List<SelRestaurantMainRes> res = restaurantMapper.selRestaurantMain(p);
+        // 식당 사진 불러오기
+        for (SelRestaurantMainRes item : res) {
+            RestaurantPicAroundSel picList = restaurantPicMapper.selRestaurantMainPic(item.getRestaurantId());
+            item.setRestaurantAroundPicList(picList);
+        }
+        return res;
     }
 }

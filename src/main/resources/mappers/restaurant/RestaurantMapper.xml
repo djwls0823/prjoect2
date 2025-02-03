@@ -117,4 +117,24 @@
          WHERE B.restaurant_id = #{restaurantId}
            AND A.holiday_id = #{holidayId}
     </update>
+
+    <select id="selRestaurantMain">
+        SELECT F.restaurant_name AS restaurantName
+        , F.restaurant_address AS restaurantAddress
+        , F.restaurant_id AS restaurantId
+        , IFNULL((
+        SELECT AVG(ABS(TIMESTAMPDIFF(MINUTE, B.reservation_time, C.use_date)))
+        FROM `order` A
+        INNER JOIN reservation B
+        ON A.order_id = B.order_id
+        INNER JOIN ticket C
+        ON B.order_id = C.order_id
+        WHERE A.restaurant_id = F.restaurant_id
+        GROUP BY A.restaurant_id
+        ), 40) AS avgRestaurant
+        FROM restaurant F
+        WHERE `status` = 0
+        AND category_id = #{categoryId}
+        LIMIT #{startIdx}, #{size}
+    </select>
 </mapper>

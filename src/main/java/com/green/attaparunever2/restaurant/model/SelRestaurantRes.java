@@ -40,7 +40,7 @@ public class SelRestaurantRes {
     @Schema(title = "생성 시간")
     private String createdAt;
     @Schema(title = "식당 사진 리스트")
-    private List<RestaurantPicSel> restaurantPics;
+    private RestaurantPicSel restaurantPics;
     @Schema(title = "메뉴 카테고리 리스트")
     private List<MenuSelCateList> menuCateList;
 }
