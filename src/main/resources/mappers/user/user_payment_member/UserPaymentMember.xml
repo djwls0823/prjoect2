@@ -67,7 +67,7 @@
     <insert id="postPaymentMember">
         INSERT INTO user_payment_member (order_id, user_id, point)
         VALUES
-        <foreach collection="paymentMembers" item="paymentMember" separator=",">
+        <foreach collection="p" item="paymentMember" separator=",">
             (#{paymentMember.orderId}, #{paymentMember.userId}, #{paymentMember.point})
         </foreach>
     </insert>

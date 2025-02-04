@@ -110,20 +110,20 @@ public class UserPaymentMemberService {
         return result;
     }
 
-    public int postPaymentMember(UserPostPaymentMemberReq p) {
+    public int postPaymentMember(UserPostPaymentMemberReq req) {
         // userId와 point 리스트의 길이가 일치하지 않으면 예외 처리
-        if (p.getUserId().size() != p.getPoint().size()) {
+        if (req.getUserId().size() != req.getPoint().size()) {
             throw new IllegalArgumentException("userId와 point 리스트의 크기가 일치하지 않습니다.");
         }
 
         // userId와 point를 결합하여 새로운 리스트 생성
         List<PostPaymentUserIdAndPoint> paymentMembers = new ArrayList<>();
-        for (int i = 0; i < p.getUserId().size(); i++) {
+        for (int i = 0; i < req.getUserId().size(); i++) {
             // Long -> long, Integer -> int로 변환하여 PostPaymentUserIdAndPoint 객체 생성
             paymentMembers.add(new PostPaymentUserIdAndPoint(
-                    p.getOrderId(),
-                    p.getUserId().get(i).longValue(),  // Long -> long
-                    p.getPoint().get(i).intValue()     // Integer -> int
+                    req.getOrderId(),
+                    req.getUserId().get(i).longValue(),  // Long -> long
+                    req.getPoint().get(i).intValue()     // Integer -> int
             ));
         }
 

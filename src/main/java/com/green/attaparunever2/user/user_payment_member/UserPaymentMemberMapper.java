@@ -13,5 +13,5 @@ public interface UserPaymentMemberMapper {
     int getPaymentMember(long orderId);
     UserGetPaymentInfoRes getPaymentInfo(UserGetPaymentInfoReq p);
     int patchPaymentMember(UserPatchPaymentMemberReq p);
-    int postPaymentMember(List<PostPaymentUserIdAndPoint> paymentMembers);
+    int postPaymentMember(List<PostPaymentUserIdAndPoint> p);
 }
