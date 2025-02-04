@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -98,5 +101,33 @@ public class UserPaymentMemberService {
         }
 
         return result;
+    }
+
+    //나에게 온 결제 요청 정보 승인 및 거부
+    public int patchPaymentMember(UserPatchPaymentMemberReq p) {
+        int result = userPaymentMemberMapper.patchPaymentMember(p);
+
+        return result;
+    }
+
+    public int postPaymentMember(UserPostPaymentMemberReq p) {
+        // userId와 point 리스트의 길이가 일치하지 않으면 예외 처리
+        if (p.getUserId().size() != p.getPoint().size()) {
+            throw new IllegalArgumentException("userId와 point 리스트의 크기가 일치하지 않습니다.");
+        }
+
+        // userId와 point를 결합하여 새로운 리스트 생성
+        List<PostPaymentUserIdAndPoint> paymentMembers = new ArrayList<>();
+        for (int i = 0; i < p.getUserId().size(); i++) {
+            // Long -> long, Integer -> int로 변환하여 PostPaymentUserIdAndPoint 객체 생성
+            paymentMembers.add(new PostPaymentUserIdAndPoint(
+                    p.getOrderId(),
+                    p.getUserId().get(i).longValue(),  // Long -> long
+                    p.getPoint().get(i).intValue()     // Integer -> int
+            ));
+        }
+
+        // 변환된 리스트를 매퍼로 전달
+        return userPaymentMemberMapper.postPaymentMember(paymentMembers);
     }
 }
