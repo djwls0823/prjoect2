@@ -32,17 +32,17 @@ public class RestaurantMenuController {
                 .build();
     }
 
-    @GetMapping
-    @Operation(summary = "카테고리 PK로 메뉴 보기")
-    public ResultResponse<List<SelMenuRes>> getMenu(@ParameterObject @ModelAttribute SelMenuReq p){
-        List<SelMenuRes> res = restaurantMenuService.getMenu(p);
-
-        return ResultResponse.<List<SelMenuRes>>builder()
-                .statusCode("200")
-                .resultMsg("메뉴 보기 완료")
-                .resultData(res)
-                .build();
-    }
+//    @GetMapping
+//    @Operation(summary = "카테고리 PK로 메뉴 보기")
+//    public ResultResponse<List<SelMenuRes>> getMenu(@ParameterObject @ModelAttribute SelMenuReq p){
+//        List<SelMenuRes> res = restaurantMenuService.getMenu(p);
+//
+//        return ResultResponse.<List<SelMenuRes>>builder()
+//                .statusCode("200")
+//                .resultMsg("메뉴 보기 완료")
+//                .resultData(res)
+//                .build();
+//    }
 
     @DeleteMapping
     public ResultResponse<Integer> deleteMenu(@ParameterObject @ModelAttribute DelMenuReq p){
